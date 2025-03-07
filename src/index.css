@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply m-0 pt-16;
+}
+
+#root {
+    @apply w-full h-full;
+}
+
+main {
+    @apply pt-16; /* Add padding to the top to account for the fixed header */
+}
+
+section {
+    @apply w-full p-5 box-border text-center;
+}
+
+header {
+    @apply w-full p-2 bg-gray-100 flex justify-between items-center shadow-md fixed top-0 left-0 z-50;
+}
+
+header img {
+    @apply h-10;
+}
+
+header button {
+    @apply ml-2;
+}
+
+.toggleSelector {
+  background: #fff;
+  height: calc(100% - 2px);
+  width: 45%; /* Adjust width to 45% */
+  border-radius: 30px;
+  position: absolute;
+  transition: .2s linear left, .2s linear margin-left;
+}
+
+@media (max-width: 768px) {
+  .toggleSelector {
+    position: static;
+    width: 10%;
+    height: 10%;
+    margin-left: 0; /* Ensures default margin-left is 0 */
+    position: absolute;
+    transition: none;
+  }
+}

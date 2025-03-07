@@ -32,9 +32,9 @@ const Header = () => {
           Products
         </Link>
       </nav>
-      <div className="flex items-center">
+      <div className="flex items-center pr-4">
         <Link to="/cart" className="ml-4 text-[#eb8194] hover:text-white transition-colors duration-300">
-          <FaShoppingCart className="text-2xl" />
+        <FaShoppingCart className="text-4xl text-[#fff3da]" />
         </Link>
       </div>
     </header>

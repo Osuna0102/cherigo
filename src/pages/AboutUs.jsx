@@ -6,7 +6,7 @@ const AboutUs = () => {
     <div className="container mx-auto p-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="flex justify-center items-center">
-          <img src="public/assets/AboutUs.png" alt="CheriGo" className="w-full h-auto" />
+          <img src="/assets/AboutUs.png" alt="CheriGo" className="w-full h-auto" />
         </div>
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-4xl font-bold mb-8 text-white text-center">About Us</h1>

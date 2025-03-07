@@ -6,11 +6,11 @@ const Header = () => {
   return (
     <header
       className="w-full p-2 bg-gray-100 flex justify-between items-center shadow-md fixed top-0 left-0 z-50"
-      style={{ backgroundImage: 'url(public/assets/bg.png)', backgroundSize: 'cover' }}
+      style={{ backgroundImage: 'url(/assets/bg.png)', backgroundSize: 'cover' }}
     >
       <div className="flex items-center">
-        <img src="public/assets/cherigoicon.png" alt="Logo" className="h-10" />
-        <img src="public/assets/CheriGo.png" alt="Logo" className="ml-2" />
+        <img src="/assets/cherigoicon.png" alt="Logo" className="h-10" />
+        <img src="/assets/CheriGo.png" alt="Logo" className="ml-2" />
       </div>
       <nav className="flex-1 flex justify-center">
         <Link

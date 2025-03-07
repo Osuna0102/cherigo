@@ -10,8 +10,8 @@ const ItemCard = ({ product }) => {
 
     return (
         <div onClick={handleClick} className="cursor-pointer">
-            <div className="bg-[#ffbdbf] p-4 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                <div className="relative w-full h-48 overflow-visible rounded-lg">
+            <div className="bg-[#ffbdbf] p-4 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 w-full h-64">
+                <div className="relative w-full h-full overflow-visible rounded-lg">
                     <img 
                         src={product.image} 
                         alt={product.title} 

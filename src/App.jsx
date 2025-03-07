@@ -6,9 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
-    <div className="grid grid-rows-[auto_1fr_auto] max-h-screen h-16">
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="flex flex-col h-full">
+      <div className="flex-grow ">
         <Outlet />
       </div>
       <Footer />

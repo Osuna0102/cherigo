@@ -3,7 +3,7 @@ import { FaInstagram, FaTwitter, FaEnvelope, FaStar } from 'react-icons/fa';
 
 const AboutUs = () => {
   return (
-    <div className="container mx-auto p-4">
+    <div className="w-full max-w-full  p-4 ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="flex justify-center items-center">
           <img src="/assets/AboutUs.png" alt="CheriGo" className="w-full h-auto" />

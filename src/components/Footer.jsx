@@ -8,9 +8,9 @@ const Footer = () => {
       className="w-full p-4 bg-gray-100 text-left shadow-md bottom-0"
       style={{ backgroundImage: 'url(/assets/bg.png)', backgroundSize: 'cover' }}
     >
-      <div className="container mx-auto flex flex-wrap justify-between items-center">
+      <div className="container  flex flex-wrap justify-between items-center">
         <div className="w-full md:w-1/3 p-4">
-          <img src="/assets/CheriGo.png" alt="CheriGo Logo" className="mx-auto h-[200px]" />
+          <img src="/assets/CheriGo.png" alt="CheriGo Logo" className=" h-[200px]" />
         </div>
         <div className="w-full md:w-2/3 p-4 flex flex-wrap rounded-[40px] bg-[#fff6e1]/70">
           <div className="w-full md:w-1/3 p-4">

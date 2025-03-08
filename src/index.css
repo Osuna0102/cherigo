@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    @font-face {
+      font-family: 'Dynapuff';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url('/assets/fonts/DynaPuff.ttf');
+    }
+
+    @font-face {
+        font-family: 'Dynapuff-bold';
+        font-style: bold;
+        font-weight: 700;
+        font-display: swap;
+        src: url('/assets/fonts/DynaPuff-Bold.ttf');
+      }
+
+      
+    
+}
+
+
+
 body {
     @apply m-0 pt-16;
 }

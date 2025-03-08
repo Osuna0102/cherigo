@@ -10,7 +10,7 @@ const Footer = () => {
     >
       <div className="container  flex flex-wrap justify-between items-center">
         <div className="w-full md:w-1/3 p-4">
-          <img src="/assets/CheriGo.png" alt="CheriGo Logo" className=" h-[200px]" />
+          <img src="/assets/icon.png" alt="CheriGo Logo" className=" h-[250px] " />
         </div>
         <div className="w-full md:w-2/3 p-4 flex flex-wrap rounded-[40px] bg-[#fff6e1]/70">
           <div className="w-full md:w-1/3 p-4">

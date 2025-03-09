@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { urlFor } from '../lib/client';
+
 
 const ItemCard = ({ product }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/products/${product.id}`);
+        navigate(`/products/${product.slug.current}`);
     };
 
     return (
@@ -13,8 +15,8 @@ const ItemCard = ({ product }) => {
             <div className="bg-[#ffbdbf] p-4 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 w-full h-64">
                 <div className="relative w-full h-full overflow-visible rounded-lg">
                     <img 
-                        src={product.image} 
-                        alt={product.title} 
+                        src={urlFor(product.image[0])} 
+                        alt={product.name} 
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-125" 
                     />
                     <div className="absolute top-0 right-0 bg-[#f66d76] text-white px-2 py-1 rounded-bl-lg transform rotate-45 translate-x-1/2 -translate-y-1/2">
@@ -23,7 +25,7 @@ const ItemCard = ({ product }) => {
                 </div>
             </div>
             <div className="mt-4 text-center">
-                <h2 className="text-[24px] font-bold font-fredoka text-[#f66d76] font-semibold mb-2">{product.title}</h2>
+                <h2 className="text-[24px] font-bold font-fredoka text-[#f66d76]  mb-2">{product.name}</h2>
                 {/* <p className="text-gray-700 mb-2">{product.description}</p> */}
                 <div className="flex justify-center space-x-2">
                     {product.categories.map((category, index) => (

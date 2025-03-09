@@ -5,6 +5,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import {client} from '../lib/client';
 
 const hardcodedProducts = [
   {
@@ -46,12 +47,26 @@ const Products = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
-    setProducts(hardcodedProducts);
-    setFilteredProducts(hardcodedProducts);
-    const allCategories = [...new Set(hardcodedProducts.flatMap(product => product.categories))];
-    setCategories(allCategories);
+    const fetchProducts = async () => {
+      const query = '*[_type == "product"]';
+      try {
+        const productsData = await client.fetch(query);
+        setProducts(productsData);
+        setFilteredProducts(productsData);
+        const allCategories = [...new Set(productsData?.flatMap(product => product.categories))];
+        setCategories(allCategories);
+
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      }
+    };
+
+   // setProducts(hardcodedProducts);
+    //setFilteredProducts(hardcodedProducts);
+    fetchProducts();
   }, []);
 
   const handleSearch = (e) => {
@@ -59,11 +74,9 @@ const Products = () => {
     filterProducts(e.target.value, selectedCategory);
   };
 
-  const [selectedCategory, setSelectedCategory] = useState('');
-
   const filterProducts = (searchTerm, category) => {
-    let filtered = hardcodedProducts.filter(product =>
-      product.title.toLowerCase().includes(searchTerm.toLowerCase())
+    let filtered = products?.filter(product =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     if (category) {
       filtered = filtered.filter(product => product.categories.includes(category));
@@ -78,6 +91,7 @@ const Products = () => {
   };
 
   return (
+    
     <div className="w-full max-w-full p-4 bg-[#fff6e1]">
       <h1 className="text-4xl font-bold mb-8 text-center">Our Products</h1>
       <div className="mb-4">
@@ -90,7 +104,7 @@ const Products = () => {
         />
       </div>
       <div className="flex justify-center mb-4 space-x-2">
-        {categories.map((category, index) => (
+        {categories?.map((category, index) => (
           <button
             key={index}
             onClick={() => handleCategoryClick(category)}
@@ -110,8 +124,9 @@ const Products = () => {
         className="w-full h-full"
         style={{paddingTop: '2rem', paddingRight: '2rem', paddingBottom: '2rem'}}
       >
-        {filteredProducts.map((product) => (
-          <SwiperSlide key={product.id} className="flex justify-center items-center">
+        {filteredProducts?.map((product) => (
+          
+          <SwiperSlide key={product._id} className="flex justify-center items-center">
             <ItemCard product={product} />
           </SwiperSlide>
         ))}

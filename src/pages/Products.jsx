@@ -69,7 +69,7 @@ const Products = () => {
 
   return (
     <div className="w-full max-w-full p-4 bg-[#fff6e1]">
-      <h1 className="text-4xl font-bold mb-8 text-center">Our Products</h1>
+      {/* <h1 className="text-4xl font-bold mb-8 text-center">Our Products</h1> */}
       <div className="mb-4">
         <input
           type="text"

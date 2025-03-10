@@ -5,42 +5,21 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import {client} from '../lib/client';
+import { client } from '../lib/client';
 
-const hardcodedProducts = [
-  {
-    id: 1,
-    title: 'MY HERO ACADEMIA: EXPOXY WORLD HEROES’ MISSION',
-    description: 'Description for product 1',
-    price: '10.00',
-    image: '/assets/Product1Sample.png',
-    categories: ['KEYCHAINS', 'STANDEES']
-  },
-  {
-    id: 2,
-    title: 'MY HERO ACADEMIA: TRANSPARENT VEGETABLE SERIES',
-    description: 'Description for product 2',
-    price: '10.00',
-    image: '/assets/Product1Sample.png',
-    categories: ['BADGES', 'OTHERS']
-  },
-  {
-    id: 3,
-    title: 'HUNTER X HUNTER: COLOURED KILLUA & GON',
-    description: 'Description for product 2',
-    price: '10.00',
-    image: '/assets/Product1Sample.png',
-    categories: ['BADGES', 'OTHERS']
-  },
-  {
-    id: 4,
-    title: 'MY HERO ACADEMIA: TRANSPARENT VEGETABLE SERIES',
-    description: 'Description for product 2',
-    price: '10.00',
-    image: '/assets/Product1Sample.png',
-    categories: ['BADGES', 'OTHERS']
-  },
-];
+const languageMapping = {
+  'My Hero Academia': ['My Hero Academia', '僕のヒーローアカデミア', 'Boku no Hīrō Akademia', 'ぼくのヒーローアカデミア'],
+  // Add more mappings as needed
+};
+
+const normalizeSearchTerm = (term) => {
+  for (const [key, values] of Object.entries(languageMapping)) {
+    if (values.some(value => value.includes(term))) {
+      return key.toLowerCase();
+    }
+  }
+  return term.toLowerCase();
+};
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -58,14 +37,11 @@ const Products = () => {
         setFilteredProducts(productsData);
         const allCategories = [...new Set(productsData?.flatMap(product => product.categories))];
         setCategories(allCategories);
-
       } catch (error) {
         console.error('Failed to fetch products:', error);
       }
     };
 
-   // setProducts(hardcodedProducts);
-    //setFilteredProducts(hardcodedProducts);
     fetchProducts();
   }, []);
 
@@ -75,8 +51,9 @@ const Products = () => {
   };
 
   const filterProducts = (searchTerm, category) => {
+    const normalizedTerm = normalizeSearchTerm(searchTerm);
     let filtered = products?.filter(product =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      normalizeSearchTerm(product.name).includes(normalizedTerm)
     );
     if (category) {
       filtered = filtered.filter(product => product.categories.includes(category));
@@ -91,7 +68,6 @@ const Products = () => {
   };
 
   return (
-    
     <div className="w-full max-w-full p-4 bg-[#fff6e1]">
       <h1 className="text-4xl font-bold mb-8 text-center">Our Products</h1>
       <div className="mb-4">
@@ -116,16 +92,14 @@ const Products = () => {
       </div>
       <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
       <Swiper
-        // autoplay={{ delay: 3000 }}
         modules={[Navigation, Pagination, Autoplay]}
         pagination={{ clickable: true }}
         slidesPerView={3}
         spaceBetween={30}
         className="w-full h-full"
-        style={{paddingTop: '2rem', paddingRight: '2rem', paddingBottom: '2rem'}}
+        style={{ paddingTop: '2rem', paddingRight: '2rem', paddingBottom: '2rem' }}
       >
         {filteredProducts?.map((product) => (
-          
           <SwiperSlide key={product._id} className="flex justify-center items-center">
             <ItemCard product={product} />
           </SwiperSlide>

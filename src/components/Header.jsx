@@ -2,10 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 
-const Header = () => {
+const Header = ({ cartItems }) => {
+  const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <header
-      className="w-full p-3 bg-gray-100 flex justify-between items-center shadow-md fixed top-0  left-0 z-50"
+      className="w-full p-3 bg-gray-100 flex justify-between items-center shadow-md fixed top-0 left-0 z-50"
       style={{ backgroundImage: 'url(/assets/bg.png)', backgroundSize: 'cover' }}
     >
       <div className="flex items-center">
@@ -26,15 +28,20 @@ const Header = () => {
         </Link>
         <Link
           to="/products"
-          className="flex items-center justify-center ml-4 font-[Dynapuff] bg-[#fff6e1] text-[#eb8194] px-4  rounded hover:bg-[#eb8194] hover:text-white transition-colors duration-300"
+          className="flex items-center justify-center ml-4 font-[Dynapuff] bg-[#fff6e1] text-[#eb8194] px-4 rounded hover:bg-[#eb8194] hover:text-white transition-colors duration-300"
         >
           <img src="/assets/shop.png" alt="shop" className="h-5" />
           Shop
         </Link>
       </nav>
       <div className="flex items-center pr-4">
-        <Link to="/cart" className="ml-4 text-[#eb8194] hover:text-white transition-colors duration-300">
-        <FaShoppingCart className="text-4xl text-[#fff3da]" />
+        <Link to="/cart" className="ml-4 text-[#eb8194] hover:text-white transition-colors duration-300 relative">
+          <FaShoppingCart className="text-4xl text-[#fff3da]" />
+          {cartItemCount > 0 && (
+            <span className="absolute top-0 right-0 bg-[#f66d76] text-white rounded-full px-2 py-1 text-xs">
+              {cartItemCount}
+            </span>
+          )}
         </Link>
       </div>
     </header>

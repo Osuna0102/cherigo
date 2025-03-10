@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^2.5.0",
     "@sanity/client": "^6.28.3",
     "@sanity/image-url": "^1.1.0",
+    "@stripe/react-stripe-js": "^3.3.0",
     "@stripe/stripe-js": "^5.10.0",
     "@vitejs/plugin-react": "^4.3.4",
     "axios": "^1.7.9",

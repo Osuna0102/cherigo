@@ -19,3 +19,12 @@ You can deploy your new Vite project with a single command from your terminal us
 ```shell
 $ vercel
 ```
+
+For Sanity:
+cd .\cherigo_sanity\
+npm run dev
+
+For frontend:
+npm run dev
+
+

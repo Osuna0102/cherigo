@@ -14,18 +14,14 @@ const ItemCard = ({ product }) => {
 
     return (
         <div onClick={handleClick} className="cursor-pointer relative">
-            <div className="bg-[#ffbdbf] p-4 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 w-full h-64">
+            <div className="bg-[#ffbdbf] p-4 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 w-full h-64 relative">
+                <div></div>
                 <div className="relative w-full h-full overflow-visible rounded-lg">
-                    <img 
-                        src={urlFor(product.image[0])} 
-                        alt={product.name} 
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-125" 
+                    <img
+                        src={urlFor(product.image[0])}
+                        alt={product.name}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-125"
                     />
-                    {product.discount && (
-                        <div className="absolute top-0 left-0 bg-[#f66d76] text-white px-2 py-1 rounded-br-lg transform -rotate-45 -translate-x-1/2">
-                            {product.discount}% OFF!
-                        </div>
-                    )}
                     <div className="absolute top-0 right-0 flex flex-col items-end space-y-1">
                         {product.discount && (
                             <div className="bg-[#f66d76] text-white px-2 py-1 rounded-bl-lg transform rotate-45 translate-x-1/2 -translate-y-1/2 line-through">
@@ -36,13 +32,31 @@ const ItemCard = ({ product }) => {
                             ${discountedPrice.toFixed(2)}
                         </div>
                     </div>
+
                     {isSoldOut && (
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="bg-[#f66d76] text-white px-4 py-2 rounded-lg text-2xl font-bold transform rotate-12">
+                            <div className="bg-[#f66d76] text-white px-4 py-2 rounded-lg text-2xl font-bold transform rotate-45">
                                 Sold Out
                             </div>
                         </div>
                     )}
+
+                    {/* Discount Triangle with Centered Text */}
+                    {product.discount && (
+                        <div className="absolute bottom-0 right-0 w-0 h-0 border-l-[120px] border-l-transparent border-b-[120px] border-b-[#f66d76] flex items-center justify-center transform translate-x-[16px] translate-y-[16px]">
+
+                        </div>
+                    )}
+
+                    {/* Discount Triangle with Centered Text */}
+                    {product.discount && (
+
+                        <div className="bottom-0 right-0 absolute text-white text-lg font-bold transform -rotate-45 py-4">
+                            {product.discount}% OFF!
+                        </div>
+                    )}
+
+
                 </div>
             </div>
             <div className="mt-4 text-center">

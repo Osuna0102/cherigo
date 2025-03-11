@@ -1,4 +1,3 @@
-
 export const ProductSchema = 
 {
     name: 'product',
@@ -46,6 +45,18 @@ export const ProductSchema =
             name: 'details',
             title: 'Details',
             type: 'string'
+        },
+        {
+            name: 'inventory',
+            title: 'Inventory',
+            type: 'number',
+            description: 'Number of items available'
+        },
+        {
+            name: 'discount',
+            title: 'Discount',
+            type: 'number',
+            description: 'Discount percentage on the price'
         }
     ]
 }

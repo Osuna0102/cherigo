@@ -1,7 +1,9 @@
 import {defineConfig} from 'sanity'
-import {structureTool} from 'sanity/structure'
+import {deskTool} from 'sanity/desk'
 import {visionTool} from '@sanity/vision'
+import {dashboardTool} from '@sanity/dashboard'
 import {schemaTypes} from './schemaTypes'
+import {orderStatsWidget} from './widgets/orderStatsWidget.jsx'
 
 export default defineConfig({
   name: 'default',
@@ -10,7 +12,9 @@ export default defineConfig({
   projectId: 'h21935xi',
   dataset: 'production',
 
-  plugins: [structureTool(), visionTool()],
+  plugins: [deskTool(), visionTool(), dashboardTool({
+    widgets: [orderStatsWidget]
+  })],
 
   schema: {
     types: schemaTypes

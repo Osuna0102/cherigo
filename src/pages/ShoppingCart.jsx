@@ -8,7 +8,8 @@ const ShoppingCart = () => {
     const navigate = useNavigate();
     
     const subTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-    const discountedTotal = cartItems.reduce((total, item) => total + (item.discount ? item.price - (item.price * item.discount / 100) : item.price) * item.quantity, 0);
+    const discountedTotal = cartItems.reduce((total, item) => total + (item.discount ? (item.price * item.discount / 100) : 0) * item.quantity, 0);
+    const orderTotal = cartItems.reduce((total, item) => total + (item.discount ? item.price - (item.price * item.discount / 100) : item.price) * item.quantity, 0);
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
 
@@ -32,7 +33,7 @@ const ShoppingCart = () => {
                                                 {item.discount && (
                                                     <div className="text-red-500 line-through ">${item.price.toFixed(2)}</div>
                                                 )}
-                                                <p className="text-gray-700 font-bold text-[#7fa083]">${discountedPrice.toFixed(2)} each</p>
+                                                <p className="text-gray-700 font-bold ">${discountedPrice.toFixed(2)} each</p>
                                                 <p className="text-gray-700">Quantity</p>
                                                 <p className="text-gray-700">{item.quantity}</p>
 
@@ -61,11 +62,11 @@ const ShoppingCart = () => {
                         </div>
                         <div className="flex justify-between">
                             <span className="text-lg font-bold text-[#f66d76]">Discounted Total:</span>
-                            <span className="text-lg font-bold text-[#f66d76]">${discountedTotal.toFixed(2)}</span>
+                            <span className="text-lg font-bold text-[#f66d76]">- ${discountedTotal.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-lg font-bold text-[#f66d76]">Order Total:</span>
-                            <span className="text-lg font-bold text-[#f66d76]">${discountedTotal.toFixed(2)}</span>
+                            <span className="text-lg font-bold text-[#f66d76]">${orderTotal.toFixed(2)}</span>
                         </div>
                     </div>
                     <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>

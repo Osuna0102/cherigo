@@ -13,7 +13,7 @@ const ShoppingCart = () => {
 
 
     return (
-        <div className="p-4 bg-[#fff6e1] min-h-screen flex justify-center">
+        <div className="p-4 bg-[#fff6e1] min-h-screen flex justify-center "  style={{ backgroundImage: "url('/assets/shop-bg.png')", backgroundSize: 'cover'}}>
             <div className="w-full max-w-6xl mx-auto p-4 flex" style={{ margin: '0 15%' }}>
                 <div className="w-1/2 pr-4">
                     <h1 className="text-4xl font-bold mb-4 text-[#f66d76]">Shopping Cart</h1>

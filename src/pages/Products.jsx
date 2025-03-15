@@ -68,7 +68,7 @@ const Products = () => {
   };
 
   return (
-    <div className="w-full max-w-full p-4 bg-[#fff6e1]">
+    <div className="w-full max-w-full p-4"  style={{ backgroundImage: "url('/assets/shop-bg.png')", backgroundSize: 'cover'}}>
       {/* <h1 className="text-4xl font-bold mb-8 text-center">Our Products</h1> */}
       <div className="mb-4">
         <input

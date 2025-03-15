@@ -40,7 +40,7 @@ const CheckoutForm = () => {
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
     return (
-        <form onSubmit={handleSubmit} className="p-4 bg-[#fff6e1] min-h-screen flex justify-center">
+        <form onSubmit={handleSubmit} className="p-4 bg-[#fff6e1] min-h-screen flex justify-center" >
             <div className="w-full max-w-6xl mx-auto p-4 flex" style={{ margin: '0 15%' }}>
                 <div className="w-1/2 pr-4">
                     <h1 className="text-4xl font-bold mb-4 text-[#f66d76]">Payment Information</h1>

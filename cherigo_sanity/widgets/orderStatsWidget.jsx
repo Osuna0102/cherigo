@@ -7,9 +7,7 @@ import 'tailwindcss/tailwind.css'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement)
 
-export const orderStatsWidget = {
-  name: 'orderStats',
-  component: () => {
+ const OrderStatsWidget = () => {
     const [stats, setStats] = useState({
       totalProducts: 0,
       totalInventory: 0,
@@ -481,5 +479,9 @@ export const orderStatsWidget = {
         )}
       </div>
     )
-  },
-}
+  }
+
+  export const orderStatsWidget = {
+    name: 'orderStats',
+    component: OrderStatsWidget
+  }

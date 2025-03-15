@@ -35,7 +35,8 @@ const CheckoutForm = () => {
     };
 
     const subTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-    const discountedTotal = cartItems.reduce((total, item) => total + (item.discount ? item.price - (item.price * item.discount / 100) : item.price) * item.quantity, 0);
+    const discountedTotal = cartItems.reduce((total, item) => total + (item.discount ? (item.price * item.discount / 100) : 0) * item.quantity, 0);
+    const orderTotal = cartItems.reduce((total, item) => total + (item.discount ? item.price - (item.price * item.discount / 100) : item.price) * item.quantity, 0);
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
     return (
@@ -60,7 +61,7 @@ const CheckoutForm = () => {
                         </div>
                         <div className="flex justify-between">
                             <span className="text-lg font-bold text-[#f66d76]">Order Total:</span>
-                            <span className="text-lg font-bold text-[#f66d76]">${discountedTotal.toFixed(2)}</span>
+                            <span className="text-lg font-bold text-[#f66d76]">${orderTotal.toFixed(2)}</span>
                         </div>
                     </div>
                     <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>

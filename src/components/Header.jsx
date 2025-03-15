@@ -16,19 +16,19 @@ const Header = ({ cartItems }) => {
       <nav className="flex-1 flex justify-center">
         <Link
           to="/"
-          className="ml-4 bg-[#fff6e1] font-[Dynapuff] text-[#eb8194] px-4 py-4 rounded hover:bg-[#eb8194] hover:text-white transition-colors duration-300"
+          className="ml-4 bg-[#fff6e1] font-[Dynapuff] text-[#eb8194] px-4 py-4 rounded-full hover:bg-[#eb8194] hover:text-white transition-colors duration-300"
         >
           Home
         </Link>
         <Link
           to="/about-us"
-          className="ml-4 bg-[#fff6e1] font-[Dynapuff] text-[#eb8194] px-4 py-4 rounded hover:bg-[#eb8194] hover:text-white transition-colors duration-300"
+          className="ml-4 bg-[#fff6e1] font-[Dynapuff] text-[#eb8194] px-4 py-4 rounded-full hover:bg-[#eb8194] hover:text-white transition-colors duration-300"
         >
           About Us
         </Link>
         <Link
           to="/products"
-          className="flex items-center justify-center ml-4 font-[Dynapuff] bg-[#fff6e1] text-[#eb8194] px-4 rounded hover:bg-[#eb8194] hover:text-white transition-colors duration-300"
+          className="flex items-center justify-center ml-4 font-[Dynapuff] bg-[#fff6e1] text-[#eb8194] px-4 rounded-full hover:bg-[#eb8194] hover:text-white transition-colors duration-300"
         >
           <img src="/assets/shop.png" alt="shop" className="h-5" />
           Shop

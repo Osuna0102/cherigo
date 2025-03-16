@@ -7,6 +7,19 @@ const ProductDetail = () => {
     const { addToCart } = useOutletContext();
     const [product, setProduct] = React.useState(null);
     const [index, setIndex] = useState(0);
+    const [selectedChoice, setSelectedChoice] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+
+    const increaseQty = () => {
+        setQuantity((prevQty) => prevQty + 1);
+    }
+
+    const decreaseQty = () => {
+        setQuantity((prevQty) => {
+            if(prevQty - 1 < 1) return 1;
+            return prevQty - 1;
+        });
+    }
 
     React.useEffect(() => {
         const fetchProduct = async () => {
@@ -41,13 +54,14 @@ const ProductDetail = () => {
         </div>
 
         {/* Center Column - Product Image */}
+        {console.log(product)}
         <div className="w-5/12 max-w-2xl m-10 justify-items-center">
             <div className=" p-0 w-80 h-80  bg-[#ffbdbf]  rounded-lg shadow-lg">
             <img src={urlFor(product.image && product.image[index])} alt={product.name} className="object-cover rounded-lg" />
             </div>
             <div className='flex flex-row p-2'>
                 {product.image?.map((item, i) => (
-                    <img src={urlFor(item)} className={`w-16 h-16 p-2 object-cover rounded-lg cursor-pointer transition-all duration-200 ${i === index ? 'ring-2 ring-red-300' : 'opacity-50'}`} onMouseEnter={() => setIndex(i)}/>
+                    <img key={i} src={urlFor(item)} className={`w-16 h-16 p-2 object-cover rounded-lg cursor-pointer transition-all duration-200 ${i === index ? 'ring-2 ring-red-300' : 'opacity-50'}`} onMouseEnter={() => setIndex(i)}/>
                 ))}
             </div>
             <div className="mt-4  justify-items-center">
@@ -63,36 +77,42 @@ const ProductDetail = () => {
         <div className="w-6/12 p-4">
             <h1 className="text-3xl font-bold mt-4 font-[Dynapuff] text-red-400 justify-self-center">{product.name}</h1>
     
-            <div className='justify-items-center' style={{ backgroundImage: "url('/assets/greenboard.png')", backgroundSize: 'cover' }}>
-                <div className="flex items-center space-x-2 pt-10">
-                <button  className="m-4 px-6 py-2 bg-red-300 text-white font-bold font-[Dynapuff] rounded-lg hover:bg-[#eb8194] transition-colors duration-300">DEKU</button>
-                <button><img src='/assets/minus.png' className='h-6 m-2' /></button>
-                <p className='text-white font-bold font-[Dynapuff] text-2xl'>1</p>
-                <button><img src='/assets/plus.png' className='h-6 m-2' /></button>
+            <div className="justify-items-center" style={{ backgroundImage: "url('/assets/greenboard.png')", backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+                    {!selectedChoice ? (
+                        product.choices?.map((choice, i) => (
+                            <button key={i} onClick={() => { setSelectedChoice(choice); setQuantity(1); }}
+                                className="m-4 px-6 py-2 bg-red-300 text-white font-bold font-[Dynapuff] rounded-lg hover:bg-[#eb8194] transition-colors duration-300">
+                                {choice}
+                            </button>
+                        ))
+                    ) : (
+                        <div className="flex flex-col items-center">
+                            <h2 className="text-2xl font-bold font-[Dynapuff]">{selectedChoice}</h2>
+
+                            <div className="flex items-center space-x-4 mt-4">
+                                <button onClick={decreaseQty}>
+                                    <img src='/assets/minus.png' className='h-6' />
+                                </button>
+                                <p className='text-white font-bold font-[Dynapuff] text-2xl'>{quantity}</p>
+                                <button onClick={increaseQty}>
+                                    <img src='/assets/plus.png' className='h-6' />
+                                </button>
+                            </div>
+
+                            <button onClick={() => { addToCart({ product, choice: selectedChoice, quantity }); setSelectedChoice(null); }}
+                                className="mt-4 px-4 py-2 bg-[#f66d76] text-white rounded-lg hover:bg-[#eb8194] transition-colors duration-300">
+                                Add to Cart
+                            </button>
+
+                            <button onClick={() => setSelectedChoice(null)} className="mt-2 text-gray-600 underline">Cancel</button>
+                        </div>
+                    )}
                 </div>
-
-                <div className="flex items-center space-x-2 ">
-                <button  className="m-4 px-6 py-2 bg-red-300 text-white font-bold font-[Dynapuff] rounded-lg hover:bg-[#eb8194] transition-colors duration-300">BAKUGOU</button>
-                <button><img src='/assets/minus.png' className='h-6 m-2' /></button>
-                <p className='text-white font-bold font-[Dynapuff] text-2xl'>1</p>
-                <button><img src='/assets/plus.png' className='h-6 m-2' /></button>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                <button  className="m-4 px-6 py-2 bg-red-300 text-white font-bold font-[Dynapuff] rounded-lg hover:bg-[#eb8194] transition-colors duration-300">TODOROKI</button>
-                <button><img src='/assets/minus.png' className='h-6 m-2' /></button>
-                <p className='text-white font-bold font-[Dynapuff] text-2xl'>1</p>
-                <button><img src='/assets/plus.png' className='h-6 m-2' /></button>
-                </div>
-
-
-                <button onClick={() => addToCart(product)}
-                className="m-4 px-4 py-2 bg-[#f66d76] text-white rounded-lg hover:bg-[#eb8194] transition-colors duration-300">
-                Add to Cart
-                </button>
-            </div>
 
             <p className="mt-2">{product.details}</p>
+            <button onClick={() => localStorage.clear()} className="mt-2 text-gray-600 underline">
+                Empty Cart
+            </button>
         </div>
 
 

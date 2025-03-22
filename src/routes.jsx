@@ -6,6 +6,8 @@ import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetails';
 import ShoppingCart from './pages/ShoppingCart';
 import CheckOut from './pages/CheckOut';
+import Payment from './Payment';
+import PaymentSuccess from './pages/PaymentSuccess';
 
 const AppRoutes = () => {
   return (
@@ -18,6 +20,8 @@ const AppRoutes = () => {
           <Route path="products/:slug" element={<ProductDetail />} />
           <Route path="cart" element={<ShoppingCart />} />
           <Route path="checkout" element={<CheckOut />} />
+          <Route path="payment" element={<Payment />} />
+          <Route path="success" element={<PaymentSuccess />} />
 
         </Route>
       </Routes>

@@ -54,6 +54,8 @@ const ShoppingCart = () => {
                         </div>
                     )}
                 </div>
+
+                {/* right column */}
                 <div className="w-1/2 pl-4">
                     <h2 className="text-4xl font-bold mb-4 text-[#f66d76]">Order Summary</h2>
                     <p className="text-xl font-bold text-[#f66d76]">{totalItems} items</p>
@@ -71,11 +73,12 @@ const ShoppingCart = () => {
                             <span className="text-lg font-bold text-[#f66d76]">${orderTotal.toFixed(2)}</span>
                         </div>
                     </div>
+
                     <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
                     <div className="mt-8 flex justify-between items-center">
                         <span className="text-2xl font-bold text-[#f66d76]">Checkout</span>
                         <button
-                            onClick={() => navigate('/checkout')}
+                            onClick={() => navigate('/payment')}
                             className="px-4 py-2 bg-[#f66d76] text-white rounded-lg hover:bg-[#eb8194] transition-colors duration-300 flex items-center"
                         >
                         <span className="ml-2"><FaArrowRight></FaArrowRight></span>

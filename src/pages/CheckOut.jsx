@@ -1,17 +1,20 @@
-import React from 'react';
+import React , {useEffect, useState} from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { Elements, CardElement, useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
 import { urlFor } from '../lib/client';
 import { FaArrowRight } from 'react-icons/fa';
+import './../App.css'
 
-const stripePromise = loadStripe('your-publishable-key-here');
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
 
 const CheckoutForm = () => {
     const { cartItems } = useOutletContext();
     const stripe = useStripe();
     const elements = useElements();
-
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [message, setMessage] = useState(null);
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -19,19 +22,22 @@ const CheckoutForm = () => {
             return;
         }
 
-        const cardElement = elements.getElement(CardElement);
+        setIsProcessing(true);
 
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: cardElement,
+        const {error} = await stripe.confirmPayment({
+            elements,
+            confirmParams: {
+                return_url: `${window.location.origin}/success`
+            },
         });
 
         if (error) {
-            console.error(error);
-        } else {
-            console.log('PaymentMethod:', paymentMethod);
-            // Send paymentMethod.id and cartItems to your server to create a payment intent
+            setMessage(error.message);
         }
+
+        setIsProcessing(false);
+
+        
     };
 
     const subTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -44,7 +50,10 @@ const CheckoutForm = () => {
             <div className="w-full max-w-6xl mx-auto p-4 flex" style={{ margin: '0 15%' }}>
                 <div className="w-1/2 pr-4">
                     <h1 className="text-4xl font-bold mb-4 text-[#f66d76]">Payment Information</h1>
-                    <CardElement className="mt-4 p-2 border rounded" />
+                   <PaymentElement />
+               <button className="pay-button" disabled={isProcessing} id="submit">
+                {isProcessing ? "Processing..." : "Pay"}
+                </button>
 
                 </div>
                 <div className="w-1/2 pl-4">
@@ -100,12 +109,6 @@ const CheckoutForm = () => {
     );
 };
 
-const CheckOut = () => {
-    return (
-        <Elements stripe={stripePromise}>
-            <CheckoutForm />
-        </Elements>
-    );
-};
 
-export default CheckOut;
+
+export default CheckoutForm;

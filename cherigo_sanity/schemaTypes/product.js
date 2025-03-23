@@ -1,3 +1,5 @@
+
+
 export const ProductSchema = 
 {
     name: 'product',
@@ -39,6 +41,15 @@ export const ProductSchema =
             of: [{type: 'string'}],
             options: {
               layout: 'categories'
+            }
+        },
+        {
+            title: 'Choices',
+            name: 'choices',
+            type: 'array',
+            of: [{type: 'string'}],
+            options: {
+              layout: 'choices'
             }
         },
         {

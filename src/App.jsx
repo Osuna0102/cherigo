@@ -15,30 +15,42 @@ function App() {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (product) => {
+  const addToCart = ({ product, choice: selectedChoice, quantity }) => {
+    if (!selectedChoice || quantity <= 0) {
+      alert("Please select a choice and quantity before adding to cart.");
+      return;
+    }
+
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find(item => item._id === product._id);
+      const existingItem = prevItems.find(item => item._id === product._id && item.selectedChoice === selectedChoice);
       if (existingItem) {
         return prevItems.map(item =>
-          item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
+          item._id === product._id && item.selectedChoice === selectedChoice
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
         );
       } else {
-        return [...prevItems, { ...product, quantity: 1 }];
+        return [...prevItems, { ...product, selectedChoice, quantity }];
       }
     });
   };
 
-  const removeFromCart = (product) => {
+  const removeFromCart = ({ product, choice: selectedChoice, quantity }) => {
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find(item => item._id === product._id);
-      if (existingItem.quantity === 1) {
-        return prevItems.filter(item => item._id !== product._id);
-      } else {
-        return prevItems.map(item =>
-          item._id === product._id ? { ...item, quantity: item.quantity - 1 } : item
-        );
-      }
-    });
+      const existingItem = prevItems.find(item => item._id === product._id && item.selectedChoice === selectedChoice);
+
+      if (!existingItem) return prevItems;
+
+     if (existingItem.quantity <= quantity) {
+      return prevItems.filter(item => !(item._id === product._id && item.selectedChoice === selectedChoice));
+    } else {
+      return prevItems.map(item =>
+        item._id === product._id && item.selectedChoice === selectedChoice
+          ? { ...item, quantity: item.quantity - quantity }
+          : item
+      );
+    }
+  });
   };
 
   return (

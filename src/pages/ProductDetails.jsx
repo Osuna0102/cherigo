@@ -58,7 +58,6 @@ const ProductDetail = () => {
         </div>
 
         {/* Center Column - Product Image */}
-        {console.log(product)}
         <div className="w-5/12 max-w-2xl m-10 justify-items-center">
             <div className=" p-0 w-80 h-80  bg-[#ffbdbf]  rounded-lg shadow-lg">
             <img src={urlFor(product.image && product.image[index])} alt={product.name} className="object-cover rounded-lg" />

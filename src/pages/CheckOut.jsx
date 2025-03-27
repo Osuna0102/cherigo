@@ -56,6 +56,8 @@ const CheckoutForm = () => {
                 </button>
 
                 </div>
+
+                
                 <div className="w-1/2 pl-4">
                     <h2 className="text-4xl font-bold mb-4 text-[#f66d76]">Order Summary</h2>
                     <p className="text-xl font-bold text-[#f66d76]">{totalItems} items</p>

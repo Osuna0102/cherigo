@@ -8,6 +8,7 @@ import ShoppingCart from './pages/ShoppingCart';
 import CheckOut from './pages/CheckOut';
 import Payment from './Payment';
 import PaymentSuccess from './pages/PaymentSuccess';
+import ShippingAddress from './pages/ShippingAddress';
 
 const AppRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const AppRoutes = () => {
           <Route path="checkout" element={<CheckOut />} />
           <Route path="payment" element={<Payment />} />
           <Route path="success" element={<PaymentSuccess />} />
+          <Route path="shippingaddr" element={<ShippingAddress />} />
 
         </Route>
       </Routes>

@@ -1,8 +1,9 @@
 import React , {useEffect, useState} from 'react';
 import { Elements } from '@stripe/react-stripe-js';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useLocation } from "react-router-dom";
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from './pages/CheckOut';
+import ShippingAddress from './pages/ShippingAddress';
 
 const Payment = (props) => {
 
@@ -11,17 +12,24 @@ const Payment = (props) => {
     const SERVER_DOMAIN = 'http://localhost:5000';
 
     const { cartItems } = useOutletContext();
+    const location = useLocation();
+    const shippingData = location.state?.shippingData || {};
+
+    useEffect(() => {
+        console.log("Received Shipping Data:", shippingData);
+    }, [shippingData]);
+
     
-    const userEmail = "hidaya96daya@gmail.com";
+    const userEmail = shippingData.email;
     const shippingDetails = {
-        name: "John Doe",
+        name: shippingData.name,
         address: {
-            line1: "123 Main St",
-            line2: "",
-            city: "New York",
-            state: "NY",
-            postal_code: "10001",
-            country: "US",
+            line1: shippingData.address?.line1 || "",
+            line2: shippingData.address?.line2 || "",
+            city: shippingData.address?.city || "",
+            state: shippingData.address?.state || "",
+            postal_code: shippingData.address?.postal_code || "",
+            country: shippingData.address?.country || "",
         },
     };
 

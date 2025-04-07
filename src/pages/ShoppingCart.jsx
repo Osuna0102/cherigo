@@ -78,7 +78,7 @@ const ShoppingCart = () => {
                     <div className="mt-8 flex justify-between items-center">
                         <span className="text-2xl font-bold text-[#f66d76]">Checkout</span>
                         <button
-                            onClick={() => navigate('/payment')}
+                            onClick={() => navigate('/shippingaddr')}
                             className="px-4 py-2 bg-[#f66d76] text-white rounded-lg hover:bg-[#eb8194] transition-colors duration-300 flex items-center"
                         >
                         <span className="ml-2"><FaArrowRight></FaArrowRight></span>

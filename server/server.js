@@ -28,9 +28,19 @@ app.post("/create-checkout-session", async (req, res) => {
         const orderTotal = cartItems.reduce((total, item) => total + (item.discount ? item.price - (item.price * item.discount / 100) : item.price) * item.quantity, 0);
         const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
-        const minCartItems = { productname: cartItems.name, selectedchoice: cartItems.selectedchoice, quantity: cartItems.quantity,
-            id: cartItems._id, rev: cartItems._rev, createdAt: cartItems._createdAt, updatedAt: cartItems._updatedAt, price: cartItems.price, discount: cartItems.discount, inventory: cartItems.inventory
-        }
+        const minCartItems = cartItems.map(item => ({
+            productname: item.name,
+            selectedchoice: item.selectedChoice,
+            quantity: item.quantity,
+            id: item._id,
+            //rev: item._rev,
+            createdAt: item._createdAt,
+            //updatedAt: item._updatedAt,
+            price: item.price,
+            discount: item.discount,
+            //inventory: item.inventory
+        }));
+        
 
         const paymentIntent = await stripe.paymentIntents.create({
             amount: orderTotal * 100, // * 100 to Convert to cents
@@ -56,6 +66,7 @@ app.post("/create-checkout-session", async (req, res) => {
             },
            // payment_method_types: ["card"],
         });
+        console.log(minCartItems);
 
         res.send({ clientSecret: paymentIntent.client_secret });
     } catch (error) {

@@ -28,19 +28,30 @@ app.post("/create-checkout-session", async (req, res) => {
         const orderTotal = cartItems.reduce((total, item) => total + (item.discount ? item.price - (item.price * item.discount / 100) : item.price) * item.quantity, 0);
         const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
-        const minCartItems = cartItems.map(item => ({
-            productname: item.name,
+        const groupedCartItems = [];
+
+        cartItems.forEach(item => {
+        const existing = groupedCartItems.find(group => group.productname === item.name);
+        const choiceData = {
             selectedchoice: item.selectedChoice,
             quantity: item.quantity,
-            id: item._id,
-            //rev: item._rev,
-            createdAt: item._createdAt,
-            //updatedAt: item._updatedAt,
-            price: item.price,
-            discount: item.discount,
-            //inventory: item.inventory
-        }));
-        
+        };
+
+        if (existing) {
+            existing.choices.push(choiceData);
+        } else {
+            groupedCartItems.push({
+                productname: item.name,
+                choices: [choiceData],
+                createdAt: item._createdAt,
+                //updatedAt: item._updatedAt,
+                totalprice: orderTotal,
+                discounted: item.discount,
+            });
+        }
+        });
+
+
 
         const paymentIntent = await stripe.paymentIntents.create({
             amount: orderTotal * 100, // * 100 to Convert to cents
@@ -58,15 +69,14 @@ app.post("/create-checkout-session", async (req, res) => {
                 },
             },
             metadata: {
-                cartItems: JSON.stringify(minCartItems), // Store cart items
+                cartItems: JSON.stringify(groupedCartItems), // Store cart items
                 userEmail: email, // Store user email
             },
             automatic_payment_methods: {
                 enabled: true,
             },
-           // payment_method_types: ["card"],
         });
-        console.log(minCartItems);
+        console.log(groupedCartItems);
 
         res.send({ clientSecret: paymentIntent.client_secret });
     } catch (error) {

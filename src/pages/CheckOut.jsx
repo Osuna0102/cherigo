@@ -51,10 +51,6 @@ const CheckoutForm = () => {
                 <div className="w-1/2 pr-4">
                     <h1 className="text-4xl font-bold mb-4 text-[#f66d76]">Payment Information</h1>
                    <PaymentElement />
-               <button className="pay-button" disabled={isProcessing} id="submit">
-                {isProcessing ? "Processing..." : "Pay"}
-                </button>
-
                 </div>
 
                 
@@ -76,32 +72,10 @@ const CheckoutForm = () => {
                         </div>
                     </div>
                     <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
-                    {/* <div>
-                        {cartItems.map((item, index) => {
-                            const discountedPrice = item.discount ? item.price - (item.price * item.discount / 100) : item.price;
-                            return (
-                                <div key={index} className="flex items-center justify-between mb-4">
-                                    <img src={urlFor(item.image[0])} alt={item.name} className="w-16 h-16 object-cover rounded-lg bg-[#ffbdbf]" />
-                                    <div className="flex-1 ml-4">
-                                        <h2 className="text-xl font-bold">{item.name}</h2>
-                                        <p className="text-gray-700">Quantity: {item.quantity}</p>
-                                        {item.discount && (
-                                            <div className="text-red-500 line-through">${item.price.toFixed(2)}</div>
-                                        )}
-                                        <p className="text-gray-700">${discountedPrice.toFixed(2)} each</p>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div> */}
-                    <div className="mt-8 flex justify-between items-center">
-                        <span className="text-2xl font-bold text-[#f66d76]">Payment</span>
-                        <button
-                            type="submit"
-                            disabled={!stripe}
-                            className="px-4 py-2 bg-[#f66d76] text-white rounded-lg hover:bg-[#eb8194] transition-colors duration-300 flex items-center"
-                        >
-                            <span className="ml-2"><FaArrowRight></FaArrowRight></span>
+                   
+                    <div className="flex justify-between items-center">
+                        <button className="pay-button" disabled={isProcessing} id="submit">
+                            {isProcessing ? "Processing..." : "Place Order"}
                         </button>
                     </div>
                     <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>

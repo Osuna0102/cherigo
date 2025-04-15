@@ -73,11 +73,11 @@ const ShippingAddress = () => {
             {/* right column */}
             <div className="w-1/2 pl-4">
                 <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
-                    <div className="mt-8 flex justify-between items-center">
-                        <span className="text-2xl font-bold text-[#f66d76]">Checkout</span>
+                    <div className="flex justify-between items-center">
+                        <span className="text-2xl font-[Dynapuff] font-bold text-[#f66d76] uppercase">Payment</span>
                         <button onClick={() => navigate('/payment', { state: { shippingData: shipping } })}
-                                        className="px-4 py-2 bg-[#f66d76] text-white rounded-lg hover:bg-[#eb8194] transition-colors duration-300 flex items-center">
-                            <span className="ml-2"><FaArrowRight /></span>
+                                        className="px-2 py-2 bg-[#f66d76] text-white rounded-full hover:bg-[#eb8194] transition-colors duration-300 flex items-center">
+                            <span><FaArrowRight /></span>
                         </button>
                     </div>
                 <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>

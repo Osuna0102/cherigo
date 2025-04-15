@@ -91,20 +91,17 @@ const Products = () => {
         ))}
       </div>
       <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
-      <Swiper
-        modules={[Navigation, Pagination, Autoplay]}
-        pagination={{ clickable: true }}
-        slidesPerView={3}
-        spaceBetween={30}
-        className="w-full h-full"
-        style={{ paddingTop: '2rem', paddingRight: '2rem', paddingBottom: '2rem' }}
-      >
-        {filteredProducts?.map((product) => (
-          <SwiperSlide key={product._id} className="flex justify-center items-center">
+      
+      <div className="w-full h-full overflow-y-auto px-4 py-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProducts?.map((product) => (
+            <div key={product._id} className="flex justify-center items-center">
             <ItemCard product={product} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            </div>
+          ))}
+        </div>
+      </div>
+      
     </div>
   );
 };

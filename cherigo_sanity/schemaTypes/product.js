@@ -56,7 +56,7 @@ export const ProductSchema =
             name: 'details',
             title: 'Details',
             type: 'string',
-            description: '<>First line<br />Second line</>',
+            description: 'Enter product description'
         },
         {
             name: 'inventory',

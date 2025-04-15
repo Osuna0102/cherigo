@@ -9,7 +9,7 @@ const Payment = (props) => {
 
     const [stripePromise, setStripePromise] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
-    const SERVER_DOMAIN = 'http://localhost:5000';
+    const SERVER_DOMAIN = import.meta.env.VITE_BACKEND_DOMAIN;
 
     const { cartItems } = useOutletContext();
     const location = useLocation();

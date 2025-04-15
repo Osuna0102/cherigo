@@ -43,9 +43,7 @@ app.post("/create-checkout-session", async (req, res) => {
             groupedCartItems.push({
                 productname: item.name,
                 choices: [choiceData],
-                createdAt: item._createdAt,
-                //updatedAt: item._updatedAt,
-                totalprice: orderTotal,
+                //totalprice: orderTotal,
                 discounted: item.discount,
             });
         }

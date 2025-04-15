@@ -52,7 +52,7 @@ const ShoppingCart = () => {
                                     </div>
                                 );
                             })}
-                             <button onClick={() => localStorage.clear()} className="px-4 py-2 bg-[#f66d76] text-white rounded-lg hover:bg-[#eb8194] transition-colors duration-300">
+                             <button onClick={() => {localStorage.clear(); window.location.reload();}} className="px-4 py-2 bg-[#f66d76] text-white rounded-lg hover:bg-[#eb8194] transition-colors duration-300">
                                             Empty Cart
                              </button>
                         </div>

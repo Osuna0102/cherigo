@@ -48,9 +48,13 @@ const ShoppingCart = () => {
                                             </button>
                                         </div>
                                         <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
+                                       
                                     </div>
                                 );
                             })}
+                             <button onClick={() => {localStorage.clear(); window.location.reload();}} className="px-4 py-2 bg-[#f66d76] text-white rounded-lg hover:bg-[#eb8194] transition-colors duration-300">
+                                            Empty Cart
+                             </button>
                         </div>
                     )}
                 </div>
@@ -75,13 +79,13 @@ const ShoppingCart = () => {
                     </div>
 
                     <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
-                    <div className="mt-8 flex justify-between items-center">
+                    <div className=" flex justify-between items-center">
                         <span className="text-2xl font-bold text-[#f66d76]">Checkout</span>
                         <button
                             onClick={() => navigate('/shippingaddr')}
-                            className="px-4 py-2 bg-[#f66d76] text-white rounded-lg hover:bg-[#eb8194] transition-colors duration-300 flex items-center"
+                            className="px-2 py-2 bg-[#f66d76] text-white rounded-full hover:bg-[#eb8194] transition-colors duration-300 flex items-center"
                         >
-                        <span className="ml-2"><FaArrowRight></FaArrowRight></span>
+                        <span className='rounded-full'><FaArrowRight ></FaArrowRight></span>
                         </button>
                     </div>
                     <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams, useOutletContext } from 'react-router-dom';
 import { urlFor, client } from '../lib/client';
+import { FaShoppingCart } from 'react-icons/fa';
+
 
 const ProductDetail = () => {
     const { slug } = useParams();
@@ -80,12 +82,18 @@ const ProductDetail = () => {
         <div className="w-6/12 p-4">
             <h1 className="text-3xl font-bold mt-4 font-[Dynapuff] text-red-400 justify-self-center">{product.name}</h1>
     
-            <div className="justify-items-center" style={{ backgroundImage: "url('/assets/greenboard.png')", backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
-                    <h2 className='font-bold font-[Dynapuff]'>Select your fav:</h2>
+            <div className="justify-items-center w-full max-w-md mx-auto p-6" 
+            style={{ backgroundImage: "url('/assets/greenboard.png')", 
+                    backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
+                    backgroundColor: '#fff6e1', minHeight: '400px', aspectRatio: '1 / 1' }}>
+                    
+                    <div className='pb-16'></div>
+                    <h2 className='font-bold font-[Dynapuff] text-center'>Select your fav:</h2>
+
                     {!selectedChoice ? (
                         product.choices?.map((choice, i) => (
                             <button key={i} onClick={() => { setSelectedChoice(choice); setQuantity(1); }}
-                                className="m-2 px-6 py-2 bg-red-300 text-white font-bold font-[Dynapuff] rounded-lg hover:bg-[#eb8194] transition-colors duration-300">
+                                className="m-2 px-6 py-2 bg-red-300 text-white font-bold font-[Dynapuff] rounded-full hover:bg-[#eb8194] transition-colors duration-300">
                                 {choice}
                             </button>
                         ))
@@ -104,26 +112,24 @@ const ProductDetail = () => {
                             </div>
 
                             <button onClick={() => { addToCart({ product, choice: selectedChoice, quantity }); setSelectedChoice(null); }}
-                                className="mt-4 px-4 py-2 bg-[#f66d76] text-white rounded-lg hover:bg-[#eb8194] transition-colors duration-300">
-                                Add to Cart
+                                className="flex gap-2 mt-4 px-4 py-2 bg-white font-[Dynapuff] text-[#f66d76] font-bold rounded-full hover:bg-[#f66d76] hover:text-white transition-colors duration-300">
+                                <FaShoppingCart className="text-xl " /><span className='uppercase'>Add to Cart</span>
                             </button>
 
-                            <button onClick={() => setSelectedChoice(null)} className="mt-2 text-gray-600 underline">Cancel</button>
+                            <button onClick={() => setSelectedChoice(null)} className="mt-2 font-[Dynapuff] text-white underline">Cancel</button>
                         </div>
                     )}
-                </div>
+            </div>
         </div>
         </div>
 
         {/* Bottom Column -  Description */}
-        <div className='flex flex-row'>
-            <hr />
-            <p className="mt-2">{product.details}</p>
-            <button onClick={() => localStorage.clear()} className="mt-2 text-gray-600 underline">
-                Empty Cart
-            </button>
-        </div>
-               
+        <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
+        <div className='uppercase text-3xl font-[Dynapuff] text-[#7ead78] font-bold'>Description</div>
+        <div className='font-[Dynapuff] text-red-400 font-bold uppercase'>Product: {product.name}</div>
+        <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
+        <div className='font-[Dynapuff] text-red-400 font-bold'>{product.details}</div>
+       
 
 
         </div>

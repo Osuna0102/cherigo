@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, useParams, useOutletContext } from 'react-router-dom';
 import { urlFor, client } from '../lib/client';
 import { FaShoppingCart } from 'react-icons/fa';
+import { PortableText } from '@portabletext/react';
+
 
 
 const ProductDetail = () => {
@@ -42,6 +44,41 @@ const ProductDetail = () => {
     </div>;
 
     const discountedPrice = product.discount ? product.price - (product.price * product.discount / 100) : product.price;
+
+    const components = {
+        block: {
+          h1: ({ children }) => (
+            <h1 className="text-4xl font-serif font-bold text-[#D4AF37] mb-6">{children}</h1>
+          ),
+          h2: ({ children }) => (
+            <h2 className="text-3xl font-serif font-semibold text-[#bfa88f] mb-5">{children}</h2>
+          ),
+          h3: ({ children }) => (
+            <h3 className="text-2xl font-serif text-gray-700 mb-4">{children}</h3>
+          ),
+          normal: ({ children }) => (
+            <p className="text-lg text-gray-600 leading-relaxed mb-5 font-light">{children}</p>
+          ),
+        },
+        marks: {
+          strong: ({ children }) => (
+            <strong className="font-bold text-gray-800">{children}</strong>
+          ),
+          em: ({ children }) => (
+            <em className="italic text-gray-700">{children}</em>
+          ),
+          link: ({ value, children }) => (
+            <a
+              href={value.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#D4AF37] underline hover:text-[#bfa88f]"
+            >
+              {children}
+            </a>
+          ),
+        },
+      };
 
     return (
         <div className="p-4 bg-[#fff6e1]  w-full " style={{ backgroundImage: "url('/assets/bgdecor.png')", backgroundSize: 'cover'}}>
@@ -125,10 +162,12 @@ const ProductDetail = () => {
 
         {/* Bottom Column -  Description */}
         <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
-        <div className='uppercase text-3xl font-[Dynapuff] text-[#7ead78] font-bold'>Description</div>
-        <div className='font-[Dynapuff] text-red-400 font-bold uppercase'>Product: {product.name}</div>
+        <h2 className='uppercase text-3xl font-[Dynapuff] text-[#7ead78] font-bold'>Description</h2>
+        <p className='font-[Dynapuff] text-red-400 font-bold uppercase'>Product: {product.name}</p>
         <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
-        <div className='font-[Dynapuff] text-red-400 font-bold'>{product.details}</div>
+        <div className="prose max-w-full font-[Dynapuff] text-red-400">
+            <PortableText value={product.details} components={components}/>
+        </div>
        
 
 

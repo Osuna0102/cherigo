@@ -9,7 +9,10 @@ const ShoppingCart = () => {
     
     const subTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const discountedTotal = cartItems.reduce((total, item) => total + (item.discount ? (item.price * item.discount / 100) : 0) * item.quantity, 0);
-    const orderTotal = subTotal - discountedTotal;
+    const totalWithoutProcessFees = subTotal - discountedTotal;
+    //processing fees according to Stripe is 3.4% + $0.50
+    const processFees = (3.4/100 * totalWithoutProcessFees) + 0.50;
+    const orderTotal = totalWithoutProcessFees + processFees;
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
 
@@ -71,6 +74,10 @@ const ShoppingCart = () => {
                         <div className="flex justify-between">
                             <span className="text-lg font-bold text-[#f66d76]">Discounted Total:</span>
                             <span className="text-lg font-bold text-[#f66d76]">- ${discountedTotal.toFixed(2)}</span>
+                        </div>
+                         <div className="flex justify-between">
+                            <span className="text-lg font-bold text-[#f66d76]">Processing Fees:</span>
+                            <span className="text-lg font-bold text-[#f66d76]">${processFees.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-lg font-bold text-[#f66d76]">Order Total:</span>

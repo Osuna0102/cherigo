@@ -78,11 +78,7 @@ export const ProductSchema =
                   },
                   styles: [],
                 },
-                // Custom blocks
-                {
-                  name: 'timeline',
-                  type: 'timeline',
-                },
+               
                {
                   type: 'image',
                   icon: ImageIcon,
@@ -112,7 +108,7 @@ export const ProductSchema =
                     },
                   ],
                 },
-                { type: 'youtube'  },
+           
               ],
             },
         {

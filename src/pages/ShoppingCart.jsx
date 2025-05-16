@@ -9,7 +9,10 @@ const ShoppingCart = () => {
     
     const subTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const discountedTotal = cartItems.reduce((total, item) => total + (item.discount ? (item.price * item.discount / 100) : 0) * item.quantity, 0);
-    const orderTotal = subTotal - discountedTotal;
+    const totalWithoutProcessFees = subTotal - discountedTotal;
+    //processing fees according to Stripe is 3.4% + $0.50
+    const processFees = (3.4/100 * totalWithoutProcessFees) + 0.50;
+    const orderTotal = totalWithoutProcessFees + processFees;
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
     return (
@@ -68,26 +71,29 @@ const ShoppingCart = () => {
                         )}
                     </div>
 
-                    {/* Order Summary - Full width on mobile, half width on large screens */}
+
+                    {   /* right column */}
                     <div className="w-full lg:w-1/2 lg:pl-4 mt-6 lg:mt-0">
-                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-[#f66d76]">Order Summary</h2>
-                        <p className="text-lg sm:text-xl font-bold text-[#f66d76]">{totalItems} items</p>
-                        
+                        <h2 className="text-4xl font-bold mb-4 text-[#f66d76]">Order Summary</h2>
+                        <p className="text-xl font-bold text-[#f66d76]">{totalItems} items</p>
                         <div className="mt-4">
                             <div className="flex justify-between">
-                                <span className="text-base sm:text-lg font-bold text-[#f66d76]">SubTotal:</span>
-                                <span className="text-base sm:text-lg font-bold text-[#f66d76]">${subTotal.toFixed(2)}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">SubTotal:</span>
+                                <span className="text-lg font-bold text-[#f66d76]">${subTotal.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-base sm:text-lg font-bold text-[#f66d76]">Discounted Total:</span>
-                                <span className="text-base sm:text-lg font-bold text-[#f66d76]">- ${discountedTotal.toFixed(2)}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">Discounted Total:</span>
+                                <span className="text-lg font-bold text-[#f66d76]">- ${discountedTotal.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-base sm:text-lg font-bold text-[#f66d76]">Order Total:</span>
-                                <span className="text-base sm:text-lg font-bold text-[#f66d76]">${orderTotal.toFixed(2)}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">Processing Fees:</span>
+                                <span className="text-lg font-bold text-[#f66d76]">${processFees.toFixed(2)}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-lg font-bold text-[#f66d76]">Order Total:</span>
+                                <span className="text-lg font-bold text-[#f66d76]">${orderTotal.toFixed(2)}</span>
                             </div>
                         </div>
-
                         <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
                         
                         <div className="flex justify-between items-center">
@@ -104,6 +110,7 @@ const ShoppingCart = () => {
                         <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
                     </div>
                 </div>
+
             </div>
         </div>
     );

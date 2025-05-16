@@ -1,4 +1,5 @@
 
+import { ImageIcon } from "@sanity/icons";
 
 export const ProductSchema = 
 {
@@ -55,9 +56,61 @@ export const ProductSchema =
         {
             name: 'details',
             title: 'Details',
-            type: 'string',
-            description: 'Enter product description'
-        },
+            type: 'array',
+              of: [
+             {
+                  type: 'block',
+                  marks: {
+                    annotations: [
+                      {
+                        name: 'link',
+                        type: 'object',
+                        title: 'Link',
+                        fields: [
+                          {
+                            name: 'href',
+                            type: 'url',
+                            title: 'Url',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  styles: [],
+                },
+               
+               {
+                  type: 'image',
+                  icon: ImageIcon,
+                  name: 'image',
+                  title: 'Image',
+                  options: {
+                    hotspot: true,
+                  },
+                  preview: {
+                    select: {
+                      imageUrl: 'asset.url',
+                      title: 'caption',
+                    },
+                  },
+                  fields: [
+                    {
+                      title: 'Caption',
+                      name: 'caption',
+                      type: 'string',
+                    },
+                   {
+                      name: 'alt',
+                      type: 'string',
+                      title: 'Alt text',
+                      description:
+                        'Alternative text for screenreaders. Falls back on caption if not set',
+                    },
+                  ],
+                },
+           
+              ],
+            },
         {
             name: 'inventory',
             title: 'Inventory',

@@ -25,7 +25,11 @@ app.post("/create-checkout-session", async (req, res) => {
 
         const subTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
         const discountedTotal = cartItems.reduce((total, item) => total + (item.discount ? (item.price * item.discount / 100) : 0) * item.quantity, 0);
-        const orderTotal = cartItems.reduce((total, item) => total + (item.discount ? item.price - (item.price * item.discount / 100) : item.price) * item.quantity, 0);
+        //const orderTotal = cartItems.reduce((total, item) => total + (item.discount ? item.price - (item.price * item.discount / 100) : item.price) * item.quantity, 0);
+         const totalWithoutProcessFees = subTotal - discountedTotal;
+        //processing fees according to Stripe is 3.4% + $0.50
+        const processFees = (3.4/100 * totalWithoutProcessFees) + 0.50;
+        const orderTotal = totalWithoutProcessFees + processFees;
         const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
         const groupedCartItems = [];
@@ -52,7 +56,7 @@ app.post("/create-checkout-session", async (req, res) => {
 
 
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: orderTotal * 100, // * 100 to Convert to cents
+            amount: Math.round(orderTotal * 100), // convert to integer cents
             currency: "usd",
             receipt_email: email, // Send receipt to the user
             shipping: {

@@ -51,13 +51,26 @@ const Products = () => {
   };
 
   const filterProducts = (searchTerm, category) => {
-    const normalizedTerm = normalizeSearchTerm(searchTerm);
-    let filtered = products?.filter(product =>
-      normalizeSearchTerm(product.name).includes(normalizedTerm)
-    );
-    if (category) {
-      filtered = filtered.filter(product => product.categories.includes(category));
+    // If search is empty and no category is selected, show all products
+    if (!searchTerm.trim() && !category) {
+      setFilteredProducts([...products]);
+      return;
     }
+  
+    const normalizedTerm = normalizeSearchTerm(searchTerm || '');
+    
+    // First filter by search term if present
+    let filtered = products?.filter(product =>
+      !searchTerm.trim() || normalizeSearchTerm(product.name || '').includes(normalizedTerm)
+    );
+  
+    // Then filter by category if selected (case-insensitive comparison)
+    if (category) {
+      filtered = filtered.filter(product => 
+        product.categories?.some(cat => cat.toLowerCase() === category.toLowerCase())
+      );
+    }
+    
     setFilteredProducts(filtered);
   };
 
@@ -68,40 +81,56 @@ const Products = () => {
   };
 
   return (
-    <div className="w-full max-w-full p-4"  style={{ backgroundImage: "url('/assets/shop-bg.png')", backgroundSize: 'cover'}}>
-      {/* <h1 className="text-4xl font-bold mb-8 text-center">Our Products</h1> */}
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search products..."
-          value={searchTerm}
-          onChange={handleSearch}
-          className="w-full p-2 border rounded bg-[#ffbdbf] text-[#fff6e1] placeholder-[#fff6e1] focus:outline-none focus:ring-2 focus:ring-[#ffbd59]"
-        />
-      </div>
-      <div className="flex justify-center mb-4 space-x-2">
-        {categories?.map((category, index) => (
-          <button
-            key={index}
-            onClick={() => handleCategoryClick(category)}
-            className={`ml-4 px-4 py-2 text-[24px] font-bold font-fredoka rounded-full hover:bg-[#eb8194] hover:text-white transition-colors duration-300 ${selectedCategory === category ? 'bg-[#ffbdbf] text-[#fff6e1]' : 'bg-[#c0d763] text-[#fff6e1]'}`}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
-      <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
-      
-      <div className="w-full h-full overflow-y-auto px-4 py-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProducts?.map((product) => (
-            <div key={product._id} className="flex justify-center items-center">
-            <ItemCard product={product} />
-            </div>
-          ))}
+    <div 
+      className="w-full min-h-screen overflow-x-hidden" 
+      style={{ backgroundImage: "url('/assets/shop-bg.png')", backgroundSize: 'cover', backgroundAttachment: 'fixed' }}
+    >
+      {/* Content container with max-width */}
+      <div className="flex justify-center w-full px-2 sm:px-4">
+        <div className="max-w-[1400px] w-full p-2 sm:p-4">
+          
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={handleSearch}
+              className="w-full p-2 border rounded bg-[#ffbdbf] text-[#fff6e1] placeholder-[#fff6e1] focus:outline-none focus:ring-2 focus:ring-[#ffbd59]"
+            />
+          </div>
+          
+          <div className="flex flex-wrap justify-center mb-4 gap-2">
+            {categories?.map((category, index) => (
+              <button
+                key={index}
+                onClick={() => handleCategoryClick(category)}
+                className={`px-3 py-1 sm:px-4 sm:py-2 text-base sm:text-lg md:text-[24px] font-bold font-fredoka rounded-full hover:bg-[#eb8194] hover:text-white transition-colors duration-300 ${selectedCategory === category ? 'bg-[#ffbdbf] text-[#fff6e1]' : 'bg-[#c0d763] text-[#fff6e1]'}`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+          
+          <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
+          
+          <div className="w-full min-h-[60vh] py-4 sm:py-6">
+            {filteredProducts && filteredProducts.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+                {filteredProducts.map((product) => (
+                  <div key={product._id} className="flex justify-center items-center w-full">
+                    <ItemCard product={product} />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center min-h-[40vh]">
+                <div className="text-xl sm:text-2xl font-bold text-[#f66d76] font-[Dynapuff] mb-4 text-center px-4">No products found</div>
+                <div className="text-base sm:text-lg text-[#7ead78] font-[Dynapuff] text-center px-4">Try a different search term or category</div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-      
     </div>
   );
 };

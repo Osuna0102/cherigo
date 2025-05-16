@@ -56,8 +56,8 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header cartItems={cartItems} />
-      <div className="flex-grow pt-10">
-        <Outlet context={{ addToCart, cartItems, removeFromCart }} />
+      <div className="flex-grow pt-10 overflow-y-hidden">
+      <Outlet context={{ addToCart, cartItems, removeFromCart }} />
       </div>
       <Footer />
     </div>

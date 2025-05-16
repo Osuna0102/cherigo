@@ -94,15 +94,16 @@ const ProductDetail = () => {
             <div className="flex flex-col max-w-[1400px] w-full px-4 md:px-8 gap-6 mx-auto my-10">
 
                 {/* Top Section - 2-column layout */}
-                <div className="flex flex-row ">
+                <div className="flex flex-col md:flex-row gap-8 w-full">
                     {/* Left Column - Product Image */}
-                    <div className="w-6/12 p-4">
+                    <div className="w-full md:w-6/12 p-4">
                         
                     
-                        <div className="p-0 w-80 h-80 bg-[#ffbdbf] rounded-lg shadow-lg mx-auto">
+                        <div className="mx-auto bg-[#ffbdbf] rounded-lg shadow-lg overflow-hidden 
+                                        w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
                             <img src={urlFor(product.image && product.image[index])} alt={product.name} className="object-cover rounded-lg" />
                         </div>
-                        <div className='flex flex-row p-2 justify-center'>
+                        <div className='flex flex-row flex-wrap justify-center gap-2 mt-4'>
                             {product.image?.map((item, i) => (
                                 <img key={i} src={urlFor(item)} className={`w-16 h-16 p-2 object-cover rounded-lg cursor-pointer transition-all duration-200 ${i === index ? 'ring-2 ring-red-300' : 'opacity-50'}`} onMouseEnter={() => setIndex(i)} />
                             ))}
@@ -117,21 +118,21 @@ const ProductDetail = () => {
                     </div>
 
                     {/* Right Column - Product Details */}
-                    <div className="w-6/12 p-4">
+                    <div className="w-full md:w-6/12 p-4">
                         <h1 className="text-3xl font-bold mt-4 font-[Dynapuff] text-red-400 justify-self-center">{product.name}</h1>
                 
-                        <div className="justify-items-center w-full max-w-md mx-auto p-6"
+                        <div className=" justify-items-center w-full max-w-md mx-auto "
                             style={{
                                 backgroundImage: "url('/assets/greenboard.png')",
-                                backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
+                                backgroundSize: 'contain', backgroundPosition: 'top', backgroundRepeat: 'no-repeat',
                                 backgroundColor: '#fff6e1', minHeight: '400px', aspectRatio: '1 / 1'
                             }}>
                 
-                            <div className='pb-16'></div>
-                            <h2 className='font-bold font-[Dynapuff] text-center'>Select your fav:</h2>
+                            <div className='pt-2 lg:pb-16'></div>
+                            <h2 className='font-bold font-[Dynapuff] text-center '>Select your fav:</h2>
                 
                             {!selectedChoice ? (
-                                <div className="flex flex-wrap justify-center mt-4">
+                                <div className="flex flex-wrap justify-center md:mt-4">
                                     {product.choices?.map((choice, i) => (
                                         <button key={i} onClick={() => { setSelectedChoice(choice); setQuantity(1); }}
                                             className={`m-2 px-6 py-2 bg-red-300 text-white font-bold font-[Dynapuff] rounded-full hover:bg-[#eb8194] transition-colors duration-300 ${

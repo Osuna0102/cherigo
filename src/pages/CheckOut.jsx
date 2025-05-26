@@ -1,8 +1,8 @@
 import React , {useEffect, useState} from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useLocation} from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
-import { urlFor } from '../lib/client';
+import { urlFor, fetchShippingZones, getShippingFeeByCountry } from '../lib/client';
 import { FaArrowRight } from 'react-icons/fa';
 import './../App.css'
 
@@ -14,7 +14,24 @@ const CheckoutForm = () => {
     const elements = useElements();
     const [isProcessing, setIsProcessing] = useState(false);
     const [message, setMessage] = useState(null);
-    
+    const [shippingFee, setShippingFee] = useState(0);
+    const [shippingZoneName, setShippingZoneName] = useState('');
+    const location = useLocation();
+    const shippingData = location.state?.shippingData || {};
+
+    useEffect(() => {
+        const fetchFee = async () => {
+            const zones = await fetchShippingZones();
+            const countryCode = shippingData?.address?.country || 'MY'; // Or however you're storing user's country
+            const shipping = getShippingFeeByCountry(zones, countryCode);
+
+            setShippingFee(shipping?.fee || 0);
+            setShippingZoneName(shipping?.name || 'Standard');
+        };
+
+        fetchFee();
+    }, []);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -46,7 +63,7 @@ const CheckoutForm = () => {
     const totalWithoutProcessFees = subTotal - discountedTotal;
     //processing fees according to Stripe is 3.4% + $0.50
     const processFees = (3.4/100 * totalWithoutProcessFees) + 0.50;
-    const orderTotal = totalWithoutProcessFees + processFees;
+    const orderTotal = totalWithoutProcessFees + processFees + shippingFee;
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
     return (
@@ -73,6 +90,10 @@ const CheckoutForm = () => {
                          <div className="flex justify-between">
                             <span className="text-lg font-bold text-[#f66d76]">Processing Fees:</span>
                             <span className="text-lg font-bold text-[#f66d76]">${processFees.toFixed(2)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="text-lg font-bold text-[#f66d76]">Shipping ({shippingZoneName}):</span>
+                            <span className="text-lg font-bold text-[#f66d76]">${shippingFee.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-lg font-bold text-[#f66d76]">Order Total:</span>

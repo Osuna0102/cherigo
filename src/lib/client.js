@@ -12,3 +12,22 @@ export const client = createClient({
 const builder = imageUrlBuilder(client);
 
 export const urlFor = (source) => builder.image(source);
+
+export const fetchShippingZones = async () => {
+  return await client.fetch(`*[_type == "shippingZone"]`);
+};
+
+export const getShippingFeeByCountry = (zones, countryCode) => {
+  for (const zone of zones) {
+    if (zone.countryCodes.includes(countryCode)) {
+      return {
+        fee: zone.feeUSD,
+        minDays: zone.estimatedMinDays,
+        maxDays: zone.estimatedMaxDays,
+        name: zone.zoneName,
+      };
+    }
+  }
+  // fallback for rest of world
+  return zones.find(z => z.zoneName.toLowerCase() === 'restOfWorld');
+};

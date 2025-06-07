@@ -178,15 +178,30 @@ const ShippingAddress = () => {
                     <label className="block text-[#f66d76] text-base sm:text-lg font-[Dynapuff]">
                         Country: <span className="text-red-500">*</span>
                     </label>
-                    <input 
-                        type="text" 
-                        name="country" 
-                        value={shipping.address.country} 
-                        onChange={handleChange} 
+                    <select
+                        name="country"
+                        value={shipping.address.country}
+                        onChange={handleChange}
                         onBlur={handleBlur}
-                        className={`w-full p-2 border-2 ${touched.country && errors.country ? 'border-red-500' : 'focus:border-[#f66d76]'} focus:outline-none rounded-2xl mb-2`} 
-                    />
+                        className={`w-full p-2 border-2 ${touched.country && errors.country ? 'border-red-500' : 'focus:border-[#f66d76]'} focus:outline-none rounded-2xl mb-2`}
+                    >
+                        <option value="">-- Select a Country --</option>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                        <option value="GB">United Kingdom</option>
+                        <option value="JP">Japan</option>
+                        <option value="AU">Australia</option>
+                        <option value="DE">Germany</option>
+                        <option value="FR">France</option>
+                        <option value="PH">Philippines</option>
+                        <option value="SG">Singapore</option>
+                        <option value="MY">Malaysia</option>
+                        <option value="IN">India</option>
+                        <option value="KR">South Korea</option>
+                        <option value="VN">Vietnam</option>
+                    </select>
                     {touched.country && errors.country && <p className="text-red-500 text-sm mb-2">{errors.country}</p>}
+
                 </div>
 
                 {/* Payment Section */}

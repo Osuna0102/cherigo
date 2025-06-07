@@ -1,8 +1,10 @@
-const express = require("express");
-const Stripe = require("stripe");
-const cors = require("cors");
-require("dotenv").config();
+import express from "express";
+import Stripe from "stripe";
+import cors from "cors";
+import dotenv from "dotenv";
+import { fetchShippingZones, getShippingFeeByCountry } from "../src/lib/client.js";
 
+dotenv.config();
 
 const app = express();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -22,6 +24,11 @@ app.post("/create-checkout-session", async (req, res) => {
     console.log(req.body)
     try {
         const { cartItems, email, shipping } = req.body;  // Get amount from frontend
+        const userCountryCode = shipping?.address?.country; 
+        
+        // Fetch shipping zones (if needed dynamically)
+        const shippingZones = await fetchShippingZones();
+        const shippingFee = getShippingFeeByCountry(shippingZones, userCountryCode);
 
         const subTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
         const discountedTotal = cartItems.reduce((total, item) => total + (item.discount ? (item.price * item.discount / 100) : 0) * item.quantity, 0);
@@ -29,7 +36,7 @@ app.post("/create-checkout-session", async (req, res) => {
          const totalWithoutProcessFees = subTotal - discountedTotal;
         //processing fees according to Stripe is 3.4% + $0.50
         const processFees = (3.4/100 * totalWithoutProcessFees) + 0.50;
-        const orderTotal = totalWithoutProcessFees + processFees;
+        const orderTotal = totalWithoutProcessFees + processFees + shippingFee.fee;
         const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
         const groupedCartItems = [];
@@ -52,6 +59,7 @@ app.post("/create-checkout-session", async (req, res) => {
             });
         }
         });
+
 
 
 
@@ -82,7 +90,7 @@ app.post("/create-checkout-session", async (req, res) => {
 
         res.send({ clientSecret: paymentIntent.client_secret });
     } catch (error) {
-        console.error("Error creating payment intent:", error);
+        console.error("Stripe error:", error.type || 'Unknown', error.message);
         res.status(500).json({ error: error.message });
     }
 });

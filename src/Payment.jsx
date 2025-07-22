@@ -34,14 +34,14 @@ const Payment = (props) => {
     };
 
     useEffect(() => {
-        fetch(`${SERVER_DOMAIN}/config`).then(async (r) => {
+        fetch(`${SERVER_DOMAIN}config`).then(async (r) => {
             const {publishableKey} = await r.json();
             setStripePromise(loadStripe(publishableKey));
         });
     }, []);
 
     useEffect(() => {
-        fetch(`${SERVER_DOMAIN}/create-checkout-session`, {
+        fetch(`${SERVER_DOMAIN}create-checkout-session`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

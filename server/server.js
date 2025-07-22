@@ -2,7 +2,7 @@ import express from "express";
 import Stripe from "stripe";
 import cors from "cors";
 import dotenv from "dotenv";
-import { fetchShippingZones, getShippingFeeByCountry } from "../src/lib/client.js";
+import { fetchShippingZones, getShippingFeeByCountry } from "./client.js";
 
 dotenv.config();
 

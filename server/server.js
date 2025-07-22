@@ -29,6 +29,9 @@ app.post("/create-checkout-session", async (req, res) => {
         // Fetch shipping zones (if needed dynamically)
         const shippingZones = await fetchShippingZones();
         const shippingFee = getShippingFeeByCountry(shippingZones, userCountryCode);
+        if (!shippingFee) {
+            return res.status(400).json({ error: `No shipping zone found for country code: ${userCountryCode}` });
+        }
 
         const subTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
         const discountedTotal = cartItems.reduce((total, item) => total + (item.discount ? (item.price * item.discount / 100) : 0) * item.quantity, 0);

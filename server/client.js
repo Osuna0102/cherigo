@@ -23,6 +23,9 @@ export const getShippingFeeByCountry = (zones, countryCode) => {
       };
     }
   }
-  // fallback for rest of world
-  return zones.find(z => z.zoneName.toLowerCase() === 'restOfWorld');
+  // fallback for rest of world (case-insensitive, handle spaces/underscores)
+  return zones.find(z =>
+    z.zoneName &&
+    z.zoneName.replace(/\s|_/g, '').toLowerCase() === 'restofworld'
+  );
 };

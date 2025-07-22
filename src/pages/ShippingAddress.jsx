@@ -199,6 +199,7 @@ const ShippingAddress = () => {
                         <option value="IN">India</option>
                         <option value="KR">South Korea</option>
                         <option value="VN">Vietnam</option>
+                        <option value="CO">Colombia</option>
                     </select>
                     {touched.country && errors.country && <p className="text-red-500 text-sm mb-2">{errors.country}</p>}
 

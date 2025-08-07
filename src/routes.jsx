@@ -9,6 +9,9 @@ import CheckOut from './pages/CheckOut';
 import Payment from './Payment';
 import PaymentSuccess from './pages/PaymentSuccess';
 import ShippingAddress from './pages/ShippingAddress';
+import ContactUs from './pages/ContactUs';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsConditions from './pages/TermsConditions';
 
 const AppRoutes = () => {
   return (
@@ -24,7 +27,9 @@ const AppRoutes = () => {
           <Route path="payment" element={<Payment />} />
           <Route path="success" element={<PaymentSuccess />} />
           <Route path="shippingaddr" element={<ShippingAddress />} />
-
+          <Route path="contact-us" element={<ContactUs />} />
+          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="terms-conditions" element={<TermsConditions />} />
         </Route>
       </Routes>
     </Router>

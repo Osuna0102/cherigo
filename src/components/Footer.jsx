@@ -27,8 +27,8 @@ const Footer = () => {
             <ul>
               <li><Link to="/terms-conditions" className="text-[#c0d763] text-[21px] font-glacial-indifference">Terms & Conditions</Link></li>
               <li><Link to="/privacy-policy" className="text-[#c0d763] text-[21px] font-glacial-indifference">Privacy Policy</Link></li>
-              <li><Link to="/promotions" className="text-[#c0d763] text-[21px] font-glacial-indifference">Promotions</Link></li>
-              <li><Link to="/services" className="text-[#c0d763] text-[21px] font-glacial-indifference">Services</Link></li>
+              {/* <li><Link to="/promotions" className="text-[#c0d763] text-[21px] font-glacial-indifference">Promotions</Link></li> */}
+              {/* <li><Link to="/services" className="text-[#c0d763] text-[21px] font-glacial-indifference">Services</Link></li> */}
             </ul>
           </div>
           <div className="w-full md:w-1/3 p-4">

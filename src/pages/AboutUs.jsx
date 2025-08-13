@@ -49,13 +49,13 @@ const AboutUs = () => {
                   
                   {/* Social Icons - positioned at the bottom portion of the board */}
                   <div className="flex justify-center space-x-3 sm:space-x-4 md:space-x-5 mt-auto">
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                    <a href="https://instagram.com/cherig0" target="_blank" rel="noopener noreferrer">
                       <img src='/assets/insta.png' className='h-10 sm:h-8 md:h-9'/>
                     </a>
                     <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
                       <img src='/assets/x.png' className='h-10 sm:h-8 md:h-9'/>
                     </a>
-                    <a href="mailto:info@cherigo.com">
+                    <a href="mailto:cherigo715@gmail.com">
                       <img src='/assets/mail.png' className='h-10 sm:h-8 md:h-9'/>
                     </a>
                   </div>

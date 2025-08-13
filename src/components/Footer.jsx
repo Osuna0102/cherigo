@@ -26,20 +26,21 @@ const Footer = () => {
             <h3 className="font-bold mb-2 text-[#f66d76] text-[24px] font-glacial-indifference">ABOUT US</h3>
             <ul>
               <li><Link to="/terms-conditions" className="text-[#c0d763] text-[21px] font-glacial-indifference">Terms & Conditions</Link></li>
-              <li><Link to="/promotions" className="text-[#c0d763] text-[21px] font-glacial-indifference">Promotions</Link></li>
-              <li><Link to="/services" className="text-[#c0d763] text-[21px] font-glacial-indifference">Services</Link></li>
+              <li><Link to="/privacy-policy" className="text-[#c0d763] text-[21px] font-glacial-indifference">Privacy Policy</Link></li>
+              {/* <li><Link to="/promotions" className="text-[#c0d763] text-[21px] font-glacial-indifference">Promotions</Link></li> */}
+              {/* <li><Link to="/services" className="text-[#c0d763] text-[21px] font-glacial-indifference">Services</Link></li> */}
             </ul>
           </div>
           <div className="w-full md:w-1/3 p-4">
             <h3 className="font-bold mb-2 text-[#f66d76] text-[24px] font-glacial-indifference">FOLLOW OUR SOCIALS!</h3>
             <div className="flex justify-start space-x-4">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="bg-[#c0d763] p-2 rounded-full">
+              <a href="https://instagram.com/cherig0" target="_blank" rel="noopener noreferrer" className="bg-[#c0d763] p-2 rounded-full">
                 <FaInstagram className="text-[#fff6e1] text-2xl hover:text-white transition-colors duration-300" />
               </a>
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="bg-[#c0d763] p-2 rounded-full">
                 <FaTwitter className="text-[#fff6e1] text-2xl hover:text-white transition-colors duration-300" />
               </a>
-              <a href="mailto:info@cherigo.com" className="bg-[#c0d763] p-2 rounded-full">
+              <a href="mailto:cherigo715@gmail.com" className="bg-[#c0d763] p-2 rounded-full">
                 <FaEnvelope className="text-[#fff6e1] text-2xl hover:text-white transition-colors duration-300" />
               </a>
             </div>

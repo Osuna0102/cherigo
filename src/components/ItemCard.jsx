@@ -1,9 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { urlFor } from '../lib/client';
+import { useLanguage } from '../lib/languageContext';
+
 
 const ItemCard = ({ product }) => {
     const navigate = useNavigate();
+    const {language} = useLanguage();
+    
 
     const handleClick = () => {
         navigate(`/products/${product.slug.current}`);
@@ -18,7 +22,7 @@ const ItemCard = ({ product }) => {
     <div className="relative w-full aspect-square overflow-visible rounded-lg">
                     <img
                         src={urlFor(product.image[0])}
-                        alt={product.name}
+                        alt={product.name[language]}
                         className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                         loading="lazy"
                     />
@@ -61,14 +65,14 @@ const ItemCard = ({ product }) => {
                 )}
             </div>
             <div className="mt-4 text-center">
-                <h2 className="text-[24px] font-bold font-fredoka text-[#f66d76] mb-2">{product.name}</h2>
+                <h2 className="text-[24px] font-bold font-fredoka text-[#f66d76] mb-2">{product.name[language]}</h2>
                 <div className="flex justify-center flex-wrap gap-2">
                     {product.categories.map((category, index) => (
                         <span
                             key={index}
                             className="px-2 py-1 text-sm font-bold font-fredoka rounded-full hover:bg-[#eb8194] hover:text-white transition-colors duration-300 bg-[#c0d763] text-[#fff6e1]"
                         >
-                            {category}
+                            {category[language]}
                         </span>
                     ))}
                 </div>

@@ -2,10 +2,13 @@ import React from 'react';
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import { urlFor } from '../lib/client';
 import { FaArrowRight } from 'react-icons/fa';
+import { useLanguage } from '../lib/languageContext';
+
 
 const ShoppingCart = () => {
     const { cartItems, removeFromCart } = useOutletContext();
     const navigate = useNavigate();
+    const {language} = useLanguage();
     
     const subTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const discountedTotal = cartItems.reduce((total, item) => total + (item.discount ? (item.price * item.discount / 100) : 0) * item.quantity, 0);
@@ -35,11 +38,11 @@ const ShoppingCart = () => {
                                                 <div className="flex items-center w-full sm:w-auto">
                                                     <img 
                                                         src={urlFor(item.image[0])} 
-                                                        alt={item.name} 
+                                                        alt={item.name[language]} 
                                                         className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg bg-[#ffbdbf]" 
                                                     />
                                                     <div className="ml-4 flex-1">
-                                                        <h2 className="font-bold text-sm sm:text-base text-[#f66d76]">{item.name}</h2>
+                                                        <h2 className="font-bold text-sm sm:text-base text-[#f66d76]">{item.name[language]}</h2>
                                                         {item.discount && (
                                                             <div className="text-red-500 line-through text-xs sm:text-sm">${item.price.toFixed(2)}</div>
                                                         )}

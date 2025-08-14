@@ -6,11 +6,14 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { client } from '../lib/client';
+import { useLanguage } from '../lib/languageContext';
+
 
 const languageMapping = {
   'My Hero Academia': ['My Hero Academia', '僕のヒーローアカデミア', 'Boku no Hīrō Akademia', 'ぼくのヒーローアカデミア'],
   // Add more mappings as needed
 };
+
 
 const normalizeSearchTerm = (term) => {
   for (const [key, values] of Object.entries(languageMapping)) {
@@ -27,6 +30,8 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const {language} = useLanguage();
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -61,13 +66,13 @@ const Products = () => {
     
     // First filter by search term if present
     let filtered = products?.filter(product =>
-      !searchTerm.trim() || normalizeSearchTerm(product.name || '').includes(normalizedTerm)
+      !searchTerm.trim() || normalizeSearchTerm(product.name[language] || '').includes(normalizedTerm)
     );
   
     // Then filter by category if selected (case-insensitive comparison)
     if (category) {
       filtered = filtered.filter(product => 
-        product.categories?.some(cat => cat.toLowerCase() === category.toLowerCase())
+        product.categories?.some(cat => cat[language].toLowerCase() === category.toLowerCase())
       );
     }
     
@@ -103,10 +108,10 @@ const Products = () => {
             {categories?.map((category, index) => (
               <button
                 key={index}
-                onClick={() => handleCategoryClick(category)}
-                className={`px-3 py-1 sm:px-4 sm:py-2 text-base sm:text-lg md:text-[24px] font-bold font-fredoka rounded-full hover:bg-[#eb8194] hover:text-white transition-colors duration-300 ${selectedCategory === category ? 'bg-[#ffbdbf] text-[#fff6e1]' : 'bg-[#c0d763] text-[#fff6e1]'}`}
+                onClick={() => handleCategoryClick(category[language])}
+                className={`px-3 py-1 sm:px-4 sm:py-2 text-base sm:text-lg md:text-[24px] font-bold font-fredoka rounded-full hover:bg-[#eb8194] hover:text-white transition-colors duration-300 ${selectedCategory === category[language] ? 'bg-[#ffbdbf] text-[#fff6e1]' : 'bg-[#c0d763] text-[#fff6e1]'}`}
               >
-                {category}
+                {category[language]}
               </button>
             ))}
           </div>

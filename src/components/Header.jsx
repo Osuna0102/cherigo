@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaHome, FaInfoCircle, FaStore } from 'react-icons/fa';
+import LanguageToggle from '../lib/langToggleBtn';
 
 const Header = ({ cartItems }) => {
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -44,6 +45,7 @@ const Header = ({ cartItems }) => {
       </nav>
       
       <div className="flex items-center pr-4">
+        <LanguageToggle />
         <Link to="/cart" className="ml-4 text-[#eb8194] hover:text-white transition-colors duration-300 relative">
           <FaShoppingCart className="text-4xl text-[#fff3da]" />
           {cartItemCount > 0 && (

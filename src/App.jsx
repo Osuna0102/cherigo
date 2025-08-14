@@ -4,6 +4,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { LanguageProvider } from './lib/languageContext';
+
 
 function App() {
   const [cartItems, setCartItems] = useState(() => {
@@ -55,11 +57,14 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header cartItems={cartItems} />
-      <div className="flex-grow pt-10 overflow-y-hidden">
-      <Outlet context={{ addToCart, cartItems, removeFromCart }} />
-      </div>
-      <Footer />
+      <LanguageProvider>
+        <Header cartItems={cartItems} />
+        <div className="flex-grow pt-10 overflow-y-hidden">
+        <Outlet context={{ addToCart, cartItems, removeFromCart }} />
+        </div>
+        <Footer />
+      </LanguageProvider>
+      
     </div>
   );
 }

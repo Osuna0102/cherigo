@@ -113,7 +113,7 @@ const ProductDetail = () => {
                                 <div className="text-red-500 line-through font-[Dynapuff]">USD ${product.price.toFixed(2)}</div>
                             )}
                             <div className="text-2xl font-bold font-[Dynapuff]">USD ${discountedPrice.toFixed(2)}</div>
-                            <div className="text-l font-[Dynapuff]">per piece</div>
+                            <div className="text-l font-[Dynapuff]"> {language === 'ja' ? '一個につ' : 'per piece'}</div>
                         </div>
                     </div>
 
@@ -129,7 +129,7 @@ const ProductDetail = () => {
                             }}>
                 
                             <div className='pt-2 lg:pb-16'></div>
-                            <h2 className='font-bold font-[Dynapuff] text-center '>Select your fav:</h2>
+                            <h2 className='font-bold font-[Dynapuff] text-center '>{language === 'ja' ? 'お気に入りを選択' : 'Select your fav:'} </h2>
                 
                             {!selectedChoice ? (
                                 <div className="flex flex-wrap justify-center md:mt-4">
@@ -159,10 +159,10 @@ const ProductDetail = () => {
                 
                                     <button onClick={() => { addToCart({ product, choice: selectedChoice, quantity }); setSelectedChoice(null); }}
                                         className="flex gap-2 mt-4 px-4 py-2 bg-white font-[Dynapuff] text-[#f66d76] font-bold rounded-full hover:bg-[#f66d76] hover:text-white transition-colors duration-300">
-                                        <FaShoppingCart className="text-xl" /><span className='uppercase'>Add to Cart</span>
+                                        <FaShoppingCart className="text-xl" /><span className='uppercase'>{language === 'ja' ? 'カートに追加' : 'Add to Cart'}</span>
                                     </button>
                 
-                                    <button onClick={() => setSelectedChoice(null)} className="mt-2 font-[Dynapuff] text-white underline">Cancel</button>
+                                    <button onClick={() => setSelectedChoice(null)} className="mt-2 font-[Dynapuff] text-white underline">{language === 'ja' ?　'消す' : 'Cancel'}</button>
                                 </div>
                             )}
                         </div>
@@ -173,7 +173,7 @@ const ProductDetail = () => {
                 <div className="px-8">
                     <div className="border-t-2 border-[#ffbd59] my-4"></div>
                     <div className='uppercase text-3xl font-[Dynapuff] text-[#7ead78] font-bold'>Description</div>
-                    <div className='font-[Dynapuff] text-red-400 font-bold uppercase'>Product: {product.name[language]}</div>
+                    <div className='font-[Dynapuff] text-red-400 font-bold uppercase'>{language === 'ja' ? '商品：' : 'Product:'} {product.name[language]}</div>
                     <div className="border-t-2 border-[#ffbd59] my-4"></div>
                     <div className='prose max-w-none font-[Dynapuff] text-red-400 mb-8'>
                         <PortableText value={product.details[language]} components={components} />

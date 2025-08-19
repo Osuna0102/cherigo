@@ -2,9 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaHome, FaInfoCircle, FaStore } from 'react-icons/fa';
 import LanguageToggle from '../lib/langToggleBtn';
+import { useLanguage } from '../lib/languageContext';
+
 
 const Header = ({ cartItems }) => {
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const { language } = useLanguage();
 
   return (
     <header
@@ -22,7 +25,7 @@ const Header = ({ cartItems }) => {
           aria-label="Home"
         >
           <FaHome className="w-6 h-6 sm:w-8 sm:h-8 md:w-8 md:h-8" />
-          <span className="ml-1 text-xs sm:text-sm md:text-base hidden sm:inline">Home</span>
+          <span className="ml-1 text-xs sm:text-sm md:text-base hidden sm:inline">{language === 'ja' ? 'ホーム' : 'Home'}  </span>
         </Link>
         
         <Link
@@ -31,7 +34,7 @@ const Header = ({ cartItems }) => {
           aria-label="About Us"
         >
           <FaInfoCircle  className="w-6 h-6 sm:w-8 sm:h-8 md:w-8 md:h-8" />
-          <span className="ml-1 text-xs sm:text-sm md:text-base hidden sm:inline">About Us</span>
+          <span className="ml-1 text-xs sm:text-sm md:text-base hidden sm:inline">{language === 'ja' ? '私達について' : 'About Us'} </span>
         </Link>
         
         <Link
@@ -40,7 +43,7 @@ const Header = ({ cartItems }) => {
           aria-label="Shop"
         >
           <img src="/assets/shop.png" alt=""  className="w-6 h-6 sm:w-8 sm:h-8 md:w-8 md:h-8" />
-          <span className="ml-1 text-xs sm:text-sm md:text-base hidden sm:inline">Shop</span>
+          <span className="ml-1 text-xs sm:text-sm md:text-base hidden sm:inline">{language === 'ja' ? 'お店' : 'Shop'} </span>
         </Link>
       </nav>
       

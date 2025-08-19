@@ -96,23 +96,23 @@ const CheckoutForm = () => {
                     <div className="mt-4">
                         <div className="flex justify-between">
                             <span className="text-lg font-bold text-[#f66d76]">{localizedText.subtotal}:</span>
-                            <span className="text-lg font-bold text-[#f66d76]">${subTotal.toFixed(2)}</span>
+                            <span className="text-lg font-bold text-[#f66d76]">USD ${subTotal.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-lg font-bold text-[#f66d76]">{localizedText.discounted}:</span>
-                            <span className="text-lg font-bold text-[#f66d76]">- ${discountedTotal.toFixed(2)}</span>
+                            <span className="text-lg font-bold text-[#f66d76]">- USD ${discountedTotal.toFixed(2)}</span>
                         </div>
                          <div className="flex justify-between">
                             <span className="text-lg font-bold text-[#f66d76]">{localizedText.processFee}:</span>
-                            <span className="text-lg font-bold text-[#f66d76]">${processFees.toFixed(2)}</span>
+                            <span className="text-lg font-bold text-[#f66d76]">USD ${processFees.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-lg font-bold text-[#f66d76]">{localizedText.shipping} ({shippingZoneName}):</span>
-                            <span className="text-lg font-bold text-[#f66d76]">${shippingFee.toFixed(2)}</span>
+                            <span className="text-lg font-bold text-[#f66d76]">USD ${shippingFee.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-lg font-bold text-[#f66d76]">{localizedText.total}:</span>
-                            <span className="text-lg font-bold text-[#f66d76]">${orderTotal.toFixed(2)}</span>
+                            <span className="text-lg font-bold text-[#f66d76]">USD ${orderTotal.toFixed(2)}</span>
                         </div>
                     </div>
                     <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>

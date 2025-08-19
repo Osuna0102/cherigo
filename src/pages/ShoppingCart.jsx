@@ -82,19 +82,19 @@ const ShoppingCart = () => {
                         <div className="mt-4">
                             <div className="flex justify-between">
                                 <span className="text-lg font-bold text-[#f66d76]">{language === 'ja' ? '小計:' : 'SubTotal:'}</span>
-                                <span className="text-lg font-bold text-[#f66d76]">${subTotal.toFixed(2)}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">USD ${subTotal.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-lg font-bold text-[#f66d76]">{language === 'ja' ?　'割引合計:' : 'Discounted Total:'}</span>
-                                <span className="text-lg font-bold text-[#f66d76]">- ${discountedTotal.toFixed(2)}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">- USD ${discountedTotal.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-lg font-bold text-[#f66d76]">{language === 'ja' ? '処理手数料:' : 'Processing Fees:'}</span>
-                                <span className="text-lg font-bold text-[#f66d76]">${processFees.toFixed(2)}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">USD ${processFees.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-lg font-bold text-[#f66d76]">{language === 'ja' ? '合計:' : 'Order Total:'}</span>
-                                <span className="text-lg font-bold text-[#f66d76]">${orderTotal.toFixed(2)}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">USD ${orderTotal.toFixed(2)}</span>
                             </div>
                         </div>
                         <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>

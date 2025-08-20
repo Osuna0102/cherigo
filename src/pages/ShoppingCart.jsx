@@ -2,10 +2,13 @@ import React from 'react';
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import { urlFor } from '../lib/client';
 import { FaArrowRight } from 'react-icons/fa';
+import { useLanguage } from '../lib/languageContext';
+
 
 const ShoppingCart = () => {
     const { cartItems, removeFromCart } = useOutletContext();
     const navigate = useNavigate();
+    const {language} = useLanguage();
     
     const subTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const discountedTotal = cartItems.reduce((total, item) => total + (item.discount ? (item.price * item.discount / 100) : 0) * item.quantity, 0);
@@ -21,10 +24,10 @@ const ShoppingCart = () => {
                 <div className="flex flex-col lg:flex-row gap-4">
                     {/* Cart Items - Full width on mobile, half width on large screens */}
                     <div className="w-full lg:w-1/2 lg:pr-4">
-                        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-[#f66d76]">Shopping Cart</h1>
+                        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-[#f66d76]">{language === 'ja' ?　'ショッピングカート' :'Shopping Cart'}</h1>
                         
                         {cartItems.length === 0 ? (
-                            <div className="text-lg text-[#f66d76] font-bold">Your cart is empty</div>
+                            <div className="text-lg text-[#f66d76] font-bold">{language === 'ja' ? 'カートが空です' : 'Your cart is empty'}</div>
                         ) : (
                             <div>
                                 {cartItems.map((item, index) => {
@@ -35,26 +38,26 @@ const ShoppingCart = () => {
                                                 <div className="flex items-center w-full sm:w-auto">
                                                     <img 
                                                         src={urlFor(item.image[0])} 
-                                                        alt={item.name} 
+                                                        alt={item.name[language]} 
                                                         className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg bg-[#ffbdbf]" 
                                                     />
                                                     <div className="ml-4 flex-1">
-                                                        <h2 className="font-bold text-sm sm:text-base text-[#f66d76]">{item.name}</h2>
+                                                        <h2 className="font-bold text-sm sm:text-base text-[#f66d76]">{item.name[language]}</h2>
                                                         {item.discount && (
                                                             <div className="text-red-500 line-through text-xs sm:text-sm">${item.price.toFixed(2)}</div>
                                                         )}
-                                                        <p className="text-gray-700 font-bold text-xs sm:text-sm">${discountedPrice.toFixed(2)} each</p>
+                                                        <p className="text-gray-700 font-bold text-xs sm:text-sm">${discountedPrice.toFixed(2)} {language === 'ja'  ? '一個につ'　: 'each'}</p>
                                                         {item.selectedChoice && 
-                                                            <p className="text-gray-700 text-xs sm:text-sm">Choice: {item.selectedChoice}</p>
+                                                            <p className="text-gray-700 text-xs sm:text-sm"> {language === 'ja' ? '選択' : 'Choice:'} {item.selectedChoice}</p>
                                                         }
-                                                        <p className="text-gray-700 text-xs sm:text-sm">Quantity: {item.quantity}</p>
+                                                        <p className="text-gray-700 text-xs sm:text-sm">{language === 'ja' ? '数量:' : 'Quantity:'} {item.quantity}</p>
                                                     </div>
                                                 </div>
                                                 <button
                                                     onClick={() => removeFromCart({product: item, choice: item.selectedChoice, quantity: item.quantity})}
                                                     className="px-3 py-1 sm:px-4 sm:py-2 mt-2 sm:mt-0 bg-[#f66d76] text-white text-xs sm:text-sm rounded-lg hover:bg-[#eb8194] transition-colors duration-300"
                                                 >
-                                                    Remove
+                                                   {language === 'ja' ? '削除' : 'Remove'}
                                                 </button>
                                             </div>
                                             <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
@@ -65,7 +68,7 @@ const ShoppingCart = () => {
                                     onClick={() => {localStorage.clear(); window.location.reload();}} 
                                     className="px-3 py-1 sm:px-4 sm:py-2 bg-[#f66d76] text-white text-xs sm:text-sm rounded-lg hover:bg-[#eb8194] transition-colors duration-300"
                                 >
-                                    Empty Cart
+                                   {language === 'ja' ? '空のカート' : 'Empty Cart'}
                                 </button>
                             </div>
                         )}
@@ -74,30 +77,30 @@ const ShoppingCart = () => {
 
                     {   /* right column */}
                     <div className="w-full lg:w-1/2 lg:pl-4 mt-6 lg:mt-0">
-                        <h2 className="text-4xl font-bold mb-4 text-[#f66d76]">Order Summary</h2>
-                        <p className="text-xl font-bold text-[#f66d76]">{totalItems} items</p>
+                        <h2 className="text-4xl font-bold mb-4 text-[#f66d76]">{language === 'ja' ? 　'注文の概要' : 'Order Summary'}</h2>
+                        <p className="text-xl font-bold text-[#f66d76]">{totalItems} {language === 'ja' ? '項目' : 'items'}</p>
                         <div className="mt-4">
                             <div className="flex justify-between">
-                                <span className="text-lg font-bold text-[#f66d76]">SubTotal:</span>
-                                <span className="text-lg font-bold text-[#f66d76]">${subTotal.toFixed(2)}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">{language === 'ja' ? '小計:' : 'SubTotal:'}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">USD ${subTotal.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-lg font-bold text-[#f66d76]">Discounted Total:</span>
-                                <span className="text-lg font-bold text-[#f66d76]">- ${discountedTotal.toFixed(2)}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">{language === 'ja' ?　'割引合計:' : 'Discounted Total:'}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">- USD ${discountedTotal.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-lg font-bold text-[#f66d76]">Processing Fees:</span>
-                                <span className="text-lg font-bold text-[#f66d76]">${processFees.toFixed(2)}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">{language === 'ja' ? '処理手数料:' : 'Processing Fees:'}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">USD ${processFees.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-lg font-bold text-[#f66d76]">Order Total:</span>
-                                <span className="text-lg font-bold text-[#f66d76]">${orderTotal.toFixed(2)}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">{language === 'ja' ? '合計:' : 'Order Total:'}</span>
+                                <span className="text-lg font-bold text-[#f66d76]">USD ${orderTotal.toFixed(2)}</span>
                             </div>
                         </div>
                         <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
                         
                         <div className="flex justify-between items-center">
-                            <span className="text-xl sm:text-2xl font-bold text-[#f66d76]">Checkout</span>
+                            <span className="text-xl sm:text-2xl font-bold text-[#f66d76]">{language === 'ja' ? 'チェックアウト' : 'Checkout'}</span>
                             <button
                                 onClick={() => navigate('/shippingaddr')}
                                 className="p-2 sm:p-3 bg-[#f66d76] text-white rounded-full hover:bg-[#eb8194] transition-colors duration-300 flex items-center justify-center"

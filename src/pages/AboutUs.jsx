@@ -1,7 +1,11 @@
 import React from 'react';
 import { FaInstagram, FaTwitter, FaEnvelope, FaStar } from 'react-icons/fa';
+import { useLanguage } from '../lib/languageContext';
+
 
 const AboutUs = () => {
+  const { language } = useLanguage();
+
   return (
     <div className="w-full h-[900px] p-2 sm:p-4" style={{ backgroundImage: "url('/assets/bg-trans.png')", backgroundSize: 'cover'}}>
       <div className="max-w-[1400px] mx-auto min-h-screen flex flex-col">
@@ -26,7 +30,7 @@ const AboutUs = () => {
           <div className="flex flex-col items-center">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white text-center font-[Dynapuff] mb-4" 
                 style={{ textShadow: '2px 2px 0 #d6e590, -2px -2px 0 #d6e590, 2px -2px 0 #d6e590, -2px 2px 0 #d6e590' }}>
-              About Us
+              {language === 'ja' ? '私たちについて' : 'About Us'} 
             </h1>
             
             {/* Yellow Board Content with proper text containment */}
@@ -40,11 +44,11 @@ const AboutUs = () => {
                 {/* Content container with carefully calculated padding to stay within visible board area */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center px-[12%] py-[15%] sm:px-[18%] sm:py-[15%] md:px-[20%] md:py-[12%]">
                   <p className="font-bold text-[#f66d76] text-base sm:text-lg md:text-xl font-[Dynapuff] mb-2 sm:mb-3 md:mb-4 text-center leading-tight">
-                    CheriGo is a fun fanmerch store handled by Cheri and Mango.
+                    {language === 'ja' ? 'CheriGoはCheriとMangoが運営する楽しいファングッズストアです。' : 'CheriGo is a fun fanmerch store handled by Cheri and Mango.'} 
                   </p>
                   
                   <p className="font-bold text-[#f66d76] text-base sm:text-lg md:text-xl font-[Dynapuff] mb-3 sm:mb-4 text-center leading-tight">
-                    You can find us during anime conventions in Malaysia!
+                    {language === 'ja' ? 'マレーシアのアニメコンベンションで私たちを見つけることができます!' : 'You can find us during anime conventions in Malaysia!'}  
                   </p>
                   
                   {/* Social Icons - positioned at the bottom portion of the board */}
@@ -66,7 +70,7 @@ const AboutUs = () => {
             {/* Portfolio Button */}
             <div className="mt-4 sm:mt-6">
               <button className="bg-[#fff6e1] text-[#eb8194] font-bold font-[Dynapuff] px-4 py-2 sm:px-5 sm:py-2 rounded-full hover:bg-[#eb8194] hover:text-white transition-colors duration-300 flex items-center text-base sm:text-lg">
-                <FaStar className="mr-2 sm:mr-3" /> PORTFOLIO
+                <FaStar className="mr-2 sm:mr-3" /> {language === 'ja' ? 'ポートフォリオ' : 'PORTFOLIO'}  
               </button>
             </div>
           </div>

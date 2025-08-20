@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../lib/languageContext';
+
 
 const ShippingAddress = () => {
     const navigate = useNavigate();
-
+    const {language} = useLanguage();
+    const t = (en, ja) => (language === 'ja' ? ja : en);
+    
     const [shipping, setShipping] = useState({
         name: "",
         email: "",
@@ -25,16 +29,16 @@ const ShippingAddress = () => {
         let newErrors = {};
         
         // Required fields validation
-        if (!shipping.name.trim()) newErrors.name = "Name is required";
+        if (!shipping.name.trim()) newErrors.name = t("Name is required", "名前は必須です");
         if (!shipping.email.trim()) {
-            newErrors.email = "Email is required";
+            newErrors.email = t("Email is required", "メールアドレスは必須です");
         } else if (!/\S+@\S+\.\S+/.test(shipping.email)) {
-            newErrors.email = "Email is invalid";
+            newErrors.email = t("Email is invalid", "無効なメールアドレスです");
         }
-        if (!shipping.address.line1.trim()) newErrors.line1 = "Address is required";
-        if (!shipping.address.city.trim()) newErrors.city = "City is required";
-        if (!shipping.address.state.trim()) newErrors.state = "State is required";
-        if (!shipping.address.country.trim()) newErrors.country = "Country is required";
+        if (!shipping.address.line1.trim()) newErrors.line1 = t("Address is required", "住所は必須です");
+        if (!shipping.address.city.trim()) newErrors.city = t("City is required", "市区町村は必須です");
+        if (!shipping.address.state.trim()) t("State is required", "都道府県は必須です");
+        if (!shipping.address.country.trim()) newErrors.country = t("Country is required", "国を選択してください");
         
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -80,10 +84,10 @@ const ShippingAddress = () => {
             <div className="w-full max-w-6xl mx-auto p-2 sm:p-4 flex flex-col lg:flex-row">
                 {/* Form Section */}
                 <div className="w-full lg:w-1/2 lg:pr-4 mb-6 lg:mb-0">
-                    <h2 className="text-xl sm:text-2xl mb-4 font-bold text-[#f66d76] font-[Dynapuff]">Shipping Address</h2>
+                    <h2 className="text-xl sm:text-2xl mb-4 font-bold text-[#f66d76] font-[Dynapuff]">{t("Shipping Address", "配送先情報")}</h2>
 
                     <label className="block text-[#f66d76] text-base sm:text-lg font-[Dynapuff]">
-                        Full Name: <span className="text-red-500">*</span>
+                        {t("Full Name", "お名前")} <span className="text-red-500">*</span>
                     </label>
                     <input 
                         type="text" 
@@ -96,7 +100,7 @@ const ShippingAddress = () => {
                     {touched.name && errors.name && <p className="text-red-500 text-sm mb-2">{errors.name}</p>}
 
                     <label className="block text-[#f66d76] text-base sm:text-lg font-[Dynapuff]">
-                        Email: <span className="text-red-500">*</span>
+                        {t("Email", "メールアドレス")} <span className="text-red-500">*</span>
                     </label>
                     <input 
                         type="email" 
@@ -109,7 +113,7 @@ const ShippingAddress = () => {
                     {touched.email && errors.email && <p className="text-red-500 text-sm mb-2">{errors.email}</p>}
 
                     <label className="block text-[#f66d76] text-base sm:text-lg font-[Dynapuff]">
-                        Address Line 1: <span className="text-red-500">*</span>
+                        {t("Address Line 1", "住所（番地・建物名など）")} <span className="text-red-500">*</span>
                     </label>
                     <input 
                         type="text" 
@@ -122,7 +126,7 @@ const ShippingAddress = () => {
                     {touched.line1 && errors.line1 && <p className="text-red-500 text-sm mb-2">{errors.line1}</p>}
 
                     <label className="block text-[#f66d76] text-base sm:text-lg font-[Dynapuff]">
-                        Address Line 2: <span className="text-gray-400">(optional)</span>
+                        {t("Address Line 2", "住所 2")} <span className="text-gray-400">{t("(optional)", "（任意)")}</span>
                     </label>
                     <input 
                         type="text" 
@@ -133,7 +137,7 @@ const ShippingAddress = () => {
                     />
 
                     <label className="block text-[#f66d76] text-base sm:text-lg font-[Dynapuff]">
-                        City: <span className="text-red-500">*</span>
+                        {t("City", "市区町村")} <span className="text-red-500">*</span>
                     </label>
                     <input 
                         type="text" 
@@ -148,7 +152,7 @@ const ShippingAddress = () => {
                     <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
                         <div className="w-full sm:w-1/2">
                             <label className="block text-[#f66d76] text-base sm:text-lg font-[Dynapuff]">
-                                State: <span className="text-red-500">*</span>
+                                { t("State", "都道府県")} <span className="text-red-500">*</span>
                             </label> 
                             <input 
                                 type="text" 
@@ -163,7 +167,7 @@ const ShippingAddress = () => {
                     
                         <div className="w-full sm:w-1/2">
                             <label className="block text-[#f66d76] text-base sm:text-lg font-[Dynapuff]">
-                                Postal Code: <span className="text-gray-400">(optional)</span>
+                                {t("Postal Code", "郵便番号")} <span className="text-gray-400">{t("(optional)", "（任意)")}</span>
                             </label>
                             <input 
                                 type="text" 
@@ -176,7 +180,7 @@ const ShippingAddress = () => {
                     </div>
                     
                     <label className="block text-[#f66d76] text-base sm:text-lg font-[Dynapuff]">
-                        Country: <span className="text-red-500">*</span>
+                       {t("Country", "国名")} <span className="text-red-500">*</span>
                     </label>
                     <select
                         name="country"
@@ -209,7 +213,7 @@ const ShippingAddress = () => {
                 <div className="w-full lg:w-1/2 lg:pl-4">
                     <div className="border-t-2 border-[#ffbd59] mb-4 my-4"></div>
                     <div className="flex justify-between items-center">
-                        <span className="text-xl sm:text-2xl font-[Dynapuff] font-bold text-[#f66d76] uppercase">Payment</span>
+                        <span className="text-xl sm:text-2xl font-[Dynapuff] font-bold text-[#f66d76] uppercase">{t("Payment", "お支払いへ")} </span>
                         <button 
                             onClick={handleSubmit}
                             className="p-2 sm:p-3 bg-[#f66d76] text-white rounded-full hover:bg-[#eb8194] transition-colors duration-300 flex items-center justify-center">

@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaInstagram, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { useLanguage } from '../lib/languageContext';
+
 
 const Footer = () => {
+  const { language } = useLanguage();
+  
   return (
     <footer
       className="w-full p-4 bg-gray-100 text-left shadow-md bottom-0"
@@ -14,25 +18,25 @@ const Footer = () => {
         </div>
         <div className="w-full md:w-2/3 p-4 flex flex-wrap rounded-[40px] bg-[#fff6e1]/70">
           <div className="w-full md:w-1/3 p-4">
-            <h3 className="font-bold mb-2 text-[#f66d76] text-[24px] font-glacial-indifference">CUSTOMER SERVICE</h3>
+            <h3 className="font-bold mb-2 text-[#f66d76] text-[24px] font-glacial-indifference">{language === 'ja' ? 'カスタマーサービス' : 'CUSTOMER SERVICE'} </h3>
             <ul>
-              <li><Link to="/contact-us" className="text-[#c0d763] text-[21px] font-glacial-indifference">Contact Us</Link></li>
-              <li><Link to="/faq" className="text-[#c0d763] text-[21px] font-glacial-indifference">FAQ</Link></li>
-              <li><Link to="/track-order" className="text-[#c0d763] text-[21px] font-glacial-indifference">Track Order</Link></li>
-              <li><Link to="/return-order" className="text-[#c0d763] text-[21px] font-glacial-indifference">Return Order</Link></li>
+              <li><Link to="/contact-us" className="text-[#c0d763] text-[21px] font-glacial-indifference">{language === 'ja' ? 'お問い合わせ' : 'Contact Us'}</Link></li>
+              <li><Link to="/faq" className="text-[#c0d763] text-[21px] font-glacial-indifference">{language === 'ja' ? 'よくある質問' : 'FAQ'}</Link></li>
+              <li><Link to="/track-order" className="text-[#c0d763] text-[21px] font-glacial-indifference">{language === 'ja' ? '配送状況を確認' : 'Track Order'}</Link></li>
+              <li><Link to="/return-order" className="text-[#c0d763] text-[21px] font-glacial-indifference">{language === 'ja' ? '返品注文' : 'Return Order'}</Link></li>
             </ul>
           </div>
           <div className="w-full md:w-1/3 p-4">
-            <h3 className="font-bold mb-2 text-[#f66d76] text-[24px] font-glacial-indifference">ABOUT US</h3>
+            <h3 className="font-bold mb-2 text-[#f66d76] text-[24px] font-glacial-indifference">{language === 'ja' ? '私たちについて' : 'ABOUT US'}</h3>
             <ul>
-              <li><Link to="/terms-conditions" className="text-[#c0d763] text-[21px] font-glacial-indifference">Terms & Conditions</Link></li>
-              <li><Link to="/privacy-policy" className="text-[#c0d763] text-[21px] font-glacial-indifference">Privacy Policy</Link></li>
+              <li><Link to="/terms-conditions" className="text-[#c0d763] text-[21px] font-glacial-indifference">{language === 'ja' ? '利用規約' : 'Terms & Conditions'}</Link></li>
+              <li><Link to="/privacy-policy" className="text-[#c0d763] text-[21px] font-glacial-indifference">{language === 'ja' ? 'プライバシーポリシー' : 'Privacy Policy'}</Link></li>
               {/* <li><Link to="/promotions" className="text-[#c0d763] text-[21px] font-glacial-indifference">Promotions</Link></li> */}
               {/* <li><Link to="/services" className="text-[#c0d763] text-[21px] font-glacial-indifference">Services</Link></li> */}
             </ul>
           </div>
           <div className="w-full md:w-1/3 p-4">
-            <h3 className="font-bold mb-2 text-[#f66d76] text-[24px] font-glacial-indifference">FOLLOW OUR SOCIALS!</h3>
+            <h3 className="font-bold mb-2 text-[#f66d76] text-[24px] font-glacial-indifference">{language === 'ja' ? 'SNSでフォローする' : 'FOLLOW OUR SOCIALS!'}</h3>
             <div className="flex justify-start space-x-4">
               <a href="https://instagram.com/cherig0" target="_blank" rel="noopener noreferrer" className="bg-[#c0d763] p-2 rounded-full">
                 <FaInstagram className="text-[#fff6e1] text-2xl hover:text-white transition-colors duration-300" />

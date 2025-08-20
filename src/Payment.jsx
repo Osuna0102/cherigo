@@ -4,12 +4,16 @@ import { useOutletContext, useLocation } from "react-router-dom";
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from './pages/CheckOut';
 import ShippingAddress from './pages/ShippingAddress';
+import { useLanguage } from './lib/languageContext';
+
 
 const Payment = (props) => {
 
     const [stripePromise, setStripePromise] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
     const SERVER_DOMAIN = import.meta.env.VITE_BACKEND_DOMAIN;
+    const {language} = useLanguage();
+
 
     const { cartItems } = useOutletContext();
     const location = useLocation();
@@ -31,6 +35,11 @@ const Payment = (props) => {
             postal_code: shippingData.address?.postal_code || "",
             country: shippingData.address?.country || "",
         },
+    };
+
+    const stripeOptions = {
+        clientSecret,
+        locale: language === 'ja' ? 'ja' : 'en', // <- Enable Japanese UI
     };
 
     useEffect(() => {
@@ -60,7 +69,7 @@ const Payment = (props) => {
     return (
         <>
         {stripePromise && clientSecret && (
-            <Elements stripe={stripePromise} options={{clientSecret}}>
+            <Elements stripe={stripePromise} options={stripeOptions}>
                 <CheckoutForm />
             </Elements>
         )};

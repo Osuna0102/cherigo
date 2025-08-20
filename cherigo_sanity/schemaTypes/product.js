@@ -19,7 +19,11 @@ export const ProductSchema =
         {
             name: 'name',
             title: 'Name',
-            type: 'string'
+            type: 'object',
+            fields: [
+              {name: 'en', type: 'string', title: 'English'},
+              {name: 'ja', type: 'string', title: 'Japanese'},
+            ]
         },
         {
             name: 'slug',
@@ -39,7 +43,11 @@ export const ProductSchema =
             title: 'Categories',
             name: 'categories',
             type: 'array',
-            of: [{type: 'string'}],
+            of: [{type: 'object',
+            fields: [
+              {name: 'en', type: 'string', title: 'English'},
+              {name: 'ja', type: 'string', title: 'Japanese'},
+            ]}],
             options: {
               layout: 'categories'
             }
@@ -48,7 +56,11 @@ export const ProductSchema =
             title: 'Choices',
             name: 'choices',
             type: 'array',
-            of: [{type: 'string'}],
+            of: [{type: 'object',
+            fields: [
+              {name: 'en', type: 'string', title: 'English'},
+              {name: 'ja', type: 'string', title: 'Japanese'},
+            ]}],
             options: {
               layout: 'choices'
             }
@@ -56,30 +68,28 @@ export const ProductSchema =
         {
             name: 'details',
             title: 'Details',
-            type: 'array',
-              of: [
-             {
-                  type: 'block',
-                  marks: {
-                    annotations: [
-                      {
-                        name: 'link',
-                        type: 'object',
-                        title: 'Link',
-                        fields: [
-                          {
-                            name: 'href',
-                            type: 'url',
-                            title: 'Url',
-                          },
-                        ],
-                      },
-                    ],
+            type: 'object',
+            fields: [
+              { name: 'en', type: 'array', of: [
+                { type: 'block', marks: {
+                  annotations: [
+                    {
+                      name: 'link',
+                      type: 'object',
+                      title: 'Link',
+                      fields: [
+                        {
+                          name: 'href',
+                          type: 'url',
+                          title: 'Url',
+                        },
+                      ],
+                    },
+                  ],
                   },
                   styles: [],
                 },
-               
-               {
+                {
                   type: 'image',
                   icon: ImageIcon,
                   name: 'image',
@@ -99,7 +109,57 @@ export const ProductSchema =
                       name: 'caption',
                       type: 'string',
                     },
-                   {
+                    {
+                      name: 'alt',
+                      type: 'string',
+                      title: 'Alt text',
+                      description:
+                      'Alternative text for screenreaders. Falls back on caption if not set',
+                    },
+                  ],
+                },
+                //{ type: 'youtube' as any },
+              ], title: 'English' },
+              { name: 'ja', type: 'array', of: [
+                { type: 'block', marks: {
+                  annotations: [
+                    {
+                      name: 'link',
+                      type: 'object',
+                      title: 'Link',
+                      fields: [
+                        {
+                          name: 'href',
+                          type: 'url',
+                          title: 'Url',
+                        },
+                      ],
+                    },
+                  ],
+                  },
+                  styles: [],
+                },
+                {
+                  type: 'image',
+                  icon: ImageIcon,
+                  name: 'image',
+                  title: 'Image',
+                  options: {
+                    hotspot: true,
+                  },
+                  preview: {
+                    select: {
+                      imageUrl: 'asset.url',
+                      title: 'caption',
+                    },
+                  },
+                  fields: [
+                    {
+                      title: 'Caption',
+                      name: 'caption',
+                      type: 'string',
+                    },
+                    {
                       name: 'alt',
                       type: 'string',
                       title: 'Alt text',
@@ -108,9 +168,10 @@ export const ProductSchema =
                     },
                   ],
                 },
-           
-              ],
-            },
+                //{ type: 'youtube' as any },
+              ], title: 'Japanese' }
+            ],
+        },
         {
             name: 'inventory',
             title: 'Inventory',

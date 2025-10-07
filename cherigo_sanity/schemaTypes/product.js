@@ -6,6 +6,12 @@ export const ProductSchema =
     name: 'product',
     title: 'Product',
     type: 'document',
+    preview: {
+        select: {
+            title: 'name.en',
+            media: 'image.0'
+        }
+    },
     fields: [
         {
             name: 'image',

@@ -2,12 +2,21 @@ import express from "express";
 import Stripe from "stripe";
 import cors from "cors";
 import dotenv from "dotenv";
+import { createClient } from '@sanity/client';
 import { fetchShippingZones, getShippingFeeByCountry } from "./client.js";
 
 dotenv.config();
 
 const app = express();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+const sanityClient = createClient({
+  projectId: 'h21935xi',
+  dataset: 'production',
+  useCdn: false, // for writes
+  apiVersion: '2023-05-03',
+  token: process.env.SANITY_AUTH_TOKEN
+});
 
 app.use(express.json());
 app.use(cors()); // Allow frontend requests
@@ -90,6 +99,34 @@ app.post("/create-checkout-session", async (req, res) => {
             },
         });
         console.log(groupedCartItems);
+
+        // Save order to Sanity
+        const orderItems = cartItems.map(item => ({
+          product: { _type: 'reference', _ref: item._id },
+          quantity: item.quantity,
+          choice: item.selectedChoice,
+          price: item.price
+        }));
+
+        const orderDoc = {
+          _type: 'order',
+          orderId: paymentIntent.id,
+          customerEmail: email,
+          items: orderItems,
+          total: orderTotal,
+          status: 'pending',
+          shippingAddress: {
+            name: shipping.name,
+            line1: shipping.address.line1,
+            line2: shipping.address.line2 || '',
+            city: shipping.address.city,
+            state: shipping.address.state,
+            postal_code: shipping.address.postal_code,
+            country: shipping.address.country
+          }
+        };
+
+        await sanityClient.create(orderDoc);
 
         res.send({ clientSecret: paymentIntent.client_secret });
     } catch (error) {

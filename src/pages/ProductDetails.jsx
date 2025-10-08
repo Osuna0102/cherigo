@@ -129,7 +129,7 @@ const ProductDetail = () => {
                             }}>
                 
                             <div className='pt-2 lg:pb-16'></div>
-                            <h2 className='font-bold font-[Dynapuff] text-center '>{language === 'ja' ? 'お気に入りを選択' : 'Select your fav:'} </h2>
+                            <h2 className='font-bold font-[Dynapuff] text-center '>{language === 'ja' ? 'お気に入りを選択' : 'Selection:'} </h2>
                 
                             {!selectedChoice ? (
                                 <div className="flex flex-wrap justify-center md:mt-4">
